@@ -1,0 +1,16 @@
+{
+  "applications": "*",
+  "changelogDate": "20231001020306",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "doc_status_values_mapping",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "DocStatusValuesMapping",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

@@ -1,0 +1,32 @@
+{
+  "applications": "*",
+  "changelogDate": "20231001020313",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "gcm_campaign_task_instance",
+  "fields": [
+    {
+      "fieldName": "tkiCompletion",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "tkiMilestone",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "tkiState",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "32"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "GcmCampaignTaskInstance",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

@@ -1,0 +1,30 @@
+{
+  "applications": "*",
+  "changelogDate": "20231001020355",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "sec_user_counters_date_range",
+  "fields": [
+    {
+      "fieldName": "datePeriod",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "wholeRange",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "portletId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "SecUserCountersDateRange",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

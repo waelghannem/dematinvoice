@@ -1,0 +1,28 @@
+{
+  "dematinvoiceApp": {
+    "actGeBytearray": {
+      "home": {
+        "title": "Act Ge Bytearrays",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Act Ge Bytearray",
+        "createOrEditLabel": "Create or edit a Act Ge Bytearray",
+        "search": "Search for Act Ge Bytearray",
+        "notFound": "No Act Ge Bytearrays found"
+      },
+      "created": "A new Act Ge Bytearray is created with identifier {{ param }}",
+      "updated": "A Act Ge Bytearray is updated with identifier {{ param }}",
+      "deleted": "A Act Ge Bytearray is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Act Ge Bytearray {{ id }}?"
+      },
+      "detail": {
+        "title": "Act Ge Bytearray"
+      },
+      "id": "Id",
+      "rev": "Rev",
+      "name": "Name",
+      "bytes": "Bytes",
+      "generated": "Generated"
+    }
+  }
+}

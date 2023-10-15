@@ -1,0 +1,27 @@
+{
+  "applications": "*",
+  "changelogDate": "20231001020214",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "batch_job_execution_context",
+  "fields": [
+    {
+      "fieldName": "shortContext",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "2500"
+    },
+    {
+      "fieldName": "serializedContext",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "BatchJobExecutionContext",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

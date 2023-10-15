@@ -1,0 +1,41 @@
+{
+  "applications": "*",
+  "changelogDate": "20231001020242",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "customer_product_hierarchy",
+  "fields": [
+    {
+      "fieldName": "codHiepdt",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "255"
+    },
+    {
+      "fieldName": "libHiepdt",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "255"
+    },
+    {
+      "fieldName": "codNivhiepdt",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "numOrd",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "codNivhiepdtsup",
+      "fieldType": "Long"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "CustomerProductHierarchy",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

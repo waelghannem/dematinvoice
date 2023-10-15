@@ -1,0 +1,89 @@
+{
+  "applications": "*",
+  "changelogDate": "20231001020310",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "gcm_campaign",
+  "fields": [
+    {
+      "fieldName": "dateBegin",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "8"
+    },
+    {
+      "fieldName": "creationDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "4096"
+    },
+    {
+      "fieldName": "dateEnd",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "modificationDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "256"
+    },
+    {
+      "fieldName": "reminderDelay",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "reminderDelayUnit",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "reminderSnoozeCount",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "reminderSnoozeInterval",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "reminderSnoozeIntervalUnit",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "reminderSnoozeTemplate",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "515"
+    },
+    {
+      "fieldName": "reminderTemplate",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "515"
+    },
+    {
+      "fieldName": "state",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "32"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "GcmCampaign",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

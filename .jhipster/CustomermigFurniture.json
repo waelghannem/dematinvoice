@@ -1,0 +1,81 @@
+{
+  "applications": "*",
+  "changelogDate": "20231001020256",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "customermig_furniture",
+  "fields": [
+    {
+      "fieldName": "codFurniture",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "32"
+    },
+    {
+      "fieldName": "binB2b",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "codMarque",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "255"
+    },
+    {
+      "fieldName": "libMarque",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "255"
+    },
+    {
+      "fieldName": "idClient",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "255"
+    },
+    {
+      "fieldName": "datCre",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "datFinapp",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "francoAmount",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "libFurniture",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "255"
+    },
+    {
+      "fieldName": "numOrdre",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "datDebapp",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "typFurniture",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "10"
+    },
+    {
+      "fieldName": "lrgFurniture",
+      "fieldType": "Long"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "CustomermigFurniture",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

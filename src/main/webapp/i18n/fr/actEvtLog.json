@@ -1,0 +1,36 @@
+{
+  "dematinvoiceApp": {
+    "actEvtLog": {
+      "home": {
+        "title": "ActEvtLogs",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Act Evt Log",
+        "createOrEditLabel": "Créer ou éditer un Act Evt Log",
+        "search": "Recherche pour Act Evt Log",
+        "notFound": "Aucun Act Evt Log trouvé"
+      },
+      "created": "Un nouveau Act Evt Log a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Act Evt Log avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Act Evt Log avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Act Evt Log {{ id }} ?"
+      },
+      "detail": {
+        "title": "Act Evt Log"
+      },
+      "id": "ID",
+      "logNr": "Log Nr",
+      "type": "Type",
+      "procDefId": "Proc Def Id",
+      "procInstId": "Proc Inst Id",
+      "executionId": "Execution Id",
+      "taskId": "Task Id",
+      "timeStamp": "Time Stamp",
+      "userId": "User Id",
+      "data": "Data",
+      "lockOwner": "Lock Owner",
+      "lockTime": "Lock Time",
+      "isProcessed": "Is Processed"
+    }
+  }
+}

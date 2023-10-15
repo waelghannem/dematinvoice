@@ -1,0 +1,78 @@
+{
+  "applications": "*",
+  "changelogDate": "20231001020408",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "wkf_step",
+  "fields": [
+    {
+      "fieldName": "wkfNumStep",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "wkfBqlFilter",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "wkfEnrich",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "wkfPauseNotif",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "wkfPortletId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "wkfRedirect",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "wkfRefuse",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "wkfExchangeDirection",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "wkfTemplate",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "wkfReminderTemplate",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "255"
+    },
+    {
+      "fieldName": "wkfReminderFrequency",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "wkfNRemindBeforeNextStep",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "wkfNRemindBeforeWarning",
+      "fieldType": "Long"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "WkfStep",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

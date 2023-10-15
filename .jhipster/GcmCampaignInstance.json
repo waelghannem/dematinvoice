@@ -1,0 +1,51 @@
+{
+  "applications": "*",
+  "changelogDate": "20231001020311",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "gcm_campaign_instance",
+  "fields": [
+    {
+      "fieldName": "creationDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "rdmDateDeployed",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "rdmDateIntegrated",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "modificationDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "rdmDateQualified",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "tkiRemindedCount",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "tkiRemindedDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "state",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "32"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "GcmCampaignInstance",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

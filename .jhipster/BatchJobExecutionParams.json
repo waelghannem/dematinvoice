@@ -1,0 +1,53 @@
+{
+  "applications": "*",
+  "changelogDate": "20231001020215",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "batch_job_execution_params",
+  "fields": [
+    {
+      "fieldName": "typeCd",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "6"
+    },
+    {
+      "fieldName": "keyName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "stringVal",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "250"
+    },
+    {
+      "fieldName": "dateVal",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "longVal",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "doubleVal",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "identifying",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "1"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "BatchJobExecutionParams",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

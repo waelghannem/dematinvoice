@@ -1,0 +1,35 @@
+{
+  "applications": "*",
+  "changelogDate": "20231001020301",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "customermig_price",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "255"
+    },
+    {
+      "fieldName": "datFinval",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "datDebval",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "prixCat",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "CustomermigPrice",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

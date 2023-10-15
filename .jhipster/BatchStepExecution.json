@@ -1,0 +1,96 @@
+{
+  "applications": "*",
+  "changelogDate": "20231001020217",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "batch_step_execution",
+  "fields": [
+    {
+      "fieldName": "stepExecutionId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "version",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "stepName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "startTime",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "endTime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "10"
+    },
+    {
+      "fieldName": "commitCount",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "readCount",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "filterCount",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "writeCount",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "readSkipCount",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "writeSkipCount",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "processSkipCount",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "rollbackCount",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "exitCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "2500"
+    },
+    {
+      "fieldName": "exitMessage",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "2500"
+    },
+    {
+      "fieldName": "lastUpdated",
+      "fieldType": "Instant"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "BatchStepExecution",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

@@ -1,0 +1,1788 @@
+entity ActEvtLog(act_evt_log) {
+    logNr Long required,
+    type String maxlength(64),
+    procDefId String maxlength(64),
+    procInstId String maxlength(64),
+    executionId String maxlength(64),
+    taskId String maxlength(64),
+    timeStamp Instant required,
+    userId String maxlength(255),
+    data Blob,
+    lockOwner String maxlength(255),
+    lockTime Instant,
+    isProcessed Long
+}
+
+entity ActGeBytearray(act_ge_bytearray) {
+    id String required maxlength(64),
+    rev Long,
+    name String maxlength(255),
+    bytes Blob,
+    generated Boolean
+}
+
+entity ActGeProperty(act_ge_property) {
+    name String required maxlength(64),
+    value String maxlength(300),
+    rev Long
+}
+
+entity ActHiActinst(act_hi_actinst) {
+    id String required maxlength(64),
+    procDefId String required maxlength(64),
+    procInstId String required maxlength(64),
+    executionId String required maxlength(64),
+    actId String required maxlength(255),
+    taskId String maxlength(64),
+    callProcInstId String maxlength(64),
+    actName String maxlength(255),
+    actType String required maxlength(255),
+    assignee String maxlength(255),
+    startTime Instant required,
+    endTime Instant,
+    duration Long,
+    deleteReason String maxlength(4000),
+    tenantId String maxlength(255)
+}
+
+entity ActHiAttachment(act_hi_attachment) {
+    id String required maxlength(64),
+    rev Long,
+    userId String maxlength(255),
+    name String maxlength(255),
+    description String maxlength(4000),
+    type String maxlength(255),
+    taskId String maxlength(64),
+    procInstId String maxlength(64),
+    url String maxlength(4000),
+    contentId String maxlength(64),
+    time Instant
+}
+
+entity ActHiComment(act_hi_comment) {
+    id String required maxlength(64),
+    type String maxlength(255),
+    time Instant required,
+    userId String maxlength(255),
+    taskId String maxlength(64),
+    procInstId String maxlength(64),
+    action String maxlength(255),
+    message String maxlength(4000),
+    fullMsg Blob
+}
+
+entity ActHiIdentitylink(act_hi_identitylink) {
+    id String required maxlength(64),
+    groupId String maxlength(255),
+    type String maxlength(255),
+    userId String maxlength(255),
+    taskId String maxlength(64),
+    procInstId String maxlength(64)
+}
+
+entity ActHiProcinst(act_hi_procinst) {
+    id String required maxlength(64),
+    procInstId String required unique maxlength(64),
+    businessKey String maxlength(255),
+    procDefId String required maxlength(64),
+    startTime Instant required,
+    endTime Instant,
+    duration Long,
+    startUserId String maxlength(255),
+    startActId String maxlength(255),
+    endActId String maxlength(255),
+    superProcessInstanceId String maxlength(64),
+    deleteReason String maxlength(4000),
+    tenantId String maxlength(255),
+    name String maxlength(255)
+}
+
+entity ActHiTaskinst(act_hi_taskinst) {
+    id String required maxlength(64),
+    procDefId String maxlength(64),
+    taskDefKey String maxlength(255),
+    procInstId String maxlength(64),
+    executionId String maxlength(64),
+    name String maxlength(255),
+    parentTaskId String maxlength(64),
+    description String maxlength(4000),
+    owner String maxlength(255),
+    assignee String maxlength(255),
+    startTime Instant required,
+    claimTime Instant,
+    endTime Instant,
+    duration Long,
+    deleteReason String maxlength(4000),
+    priority Long,
+    dueDate Instant,
+    formKey String maxlength(255),
+    category String maxlength(255),
+    tenantId String maxlength(255)
+}
+
+entity ActHiVarinst(act_hi_varinst) {
+    id String required maxlength(64),
+    procInstId String maxlength(64),
+    executionId String maxlength(64),
+    taskId String maxlength(64),
+    name String required maxlength(255),
+    varType String maxlength(100),
+    rev Long,
+    bytearrayId String maxlength(64),
+    double Double,
+    long Long,
+    text String maxlength(4000),
+    text2 String maxlength(4000),
+    createTime Instant,
+    lastUpdatedTime Instant
+}
+
+entity ActIdGroup(act_id_group) {
+    id String required maxlength(64),
+    rev Long,
+    name String maxlength(255),
+    type String maxlength(255)
+}
+
+entity ActIdInfo(act_id_info) {
+    id String required maxlength(64),
+    rev Long,
+    userId String maxlength(64),
+    type String maxlength(64),
+    key String maxlength(255),
+    value String maxlength(255),
+    password Blob,
+    parentId String maxlength(255)
+}
+
+entity ActIdUser(act_id_user) {
+    id String required maxlength(64),
+    rev Long,
+    first String maxlength(255),
+    last String maxlength(255),
+    email String maxlength(255),
+    pwd String maxlength(255),
+    pictureId String maxlength(64)
+}
+
+entity ActProcdefInfo(act_procdef_info) {
+    id String required maxlength(64),
+    rev Long
+}
+
+entity ActReDeployment(act_re_deployment) {
+    id String required maxlength(64),
+    name String maxlength(255),
+    category String maxlength(255),
+    key String maxlength(255),
+    tenantId String maxlength(255),
+    deployTime Instant,
+    engineVersion String maxlength(255)
+}
+
+entity ActReModel(act_re_model) {
+    id String required maxlength(64),
+    rev Long,
+    name String maxlength(255),
+    key String maxlength(255),
+    category String maxlength(255),
+    createTime Instant,
+    lastUpdateTime Instant,
+    version Long,
+    metaInfo String maxlength(4000),
+    tenantId String maxlength(255)
+}
+
+entity ActReProcdef(act_re_procdef) {
+    id String required maxlength(64),
+    rev Long,
+    category String maxlength(255),
+    name String maxlength(255),
+    key String required unique maxlength(255),
+    version Long required unique,
+    deploymentId String maxlength(64),
+    resourceName String maxlength(4000),
+    dgrmResourceName String maxlength(4000),
+    description String maxlength(4000),
+    hasStartFormKey Boolean,
+    hasGraphicalNotation Boolean,
+    suspensionState Long,
+    tenantId String unique maxlength(255),
+    engineVersion String maxlength(255)
+}
+
+entity ActRuDeadletterJob(act_ru_deadletter_job) {
+    id String required maxlength(64),
+    rev Long,
+    type String required maxlength(255),
+    exclusive Boolean,
+    exceptionMsg String maxlength(4000),
+    duedate Instant,
+    repeat String maxlength(255),
+    handlerType String maxlength(255),
+    handlerCfg String maxlength(4000),
+    tenantId String maxlength(255)
+}
+
+entity ActRuEventSubscr(act_ru_event_subscr) {
+    id String required maxlength(64),
+    rev Long,
+    eventType String required maxlength(255),
+    eventName String maxlength(255),
+    procInstId String maxlength(64),
+    activityId String maxlength(64),
+    configuration String maxlength(255),
+    created Instant required,
+    procDefId String maxlength(64),
+    tenantId String maxlength(255)
+}
+
+entity ActRuExecution(act_ru_execution) {
+    id String required maxlength(64),
+    rev Long,
+    businessKey String maxlength(255),
+    rootProcInstId String maxlength(64),
+    actId String maxlength(255),
+    isActive Boolean,
+    isConcurrent Boolean,
+    isScope Boolean,
+    isEventScope Boolean,
+    isMiRoot Boolean,
+    suspensionState Long,
+    cachedEntState Long,
+    tenantId String maxlength(255),
+    name String maxlength(255),
+    startTime Instant,
+    startUserId String maxlength(255),
+    lockTime Instant,
+    isCountEnabled Boolean,
+    evtSubscrCount Long,
+    taskCount Long,
+    jobCount Long,
+    timerJobCount Long,
+    suspJobCount Long,
+    deadletterJobCount Long,
+    varCount Long,
+    idLinkCount Long
+}
+
+entity ActRuIdentitylink(act_ru_identitylink) {
+    id String required maxlength(64),
+    rev Long,
+    groupId String maxlength(255),
+    type String maxlength(255),
+    userId String maxlength(255)
+}
+
+entity ActRuJob(act_ru_job) {
+    id String required maxlength(64),
+    rev Long,
+    type String required maxlength(255),
+    lockExpTime Instant,
+    lockOwner String maxlength(255),
+    exclusive Boolean,
+    retries Long,
+    exceptionMsg String maxlength(4000),
+    duedate Instant,
+    repeat String maxlength(255),
+    handlerType String maxlength(255),
+    handlerCfg String maxlength(4000),
+    tenantId String maxlength(255)
+}
+
+entity ActRuSuspendedJob(act_ru_suspended_job) {
+    id String required maxlength(64),
+    rev Long,
+    type String required maxlength(255),
+    exclusive Boolean,
+    retries Long,
+    exceptionMsg String maxlength(4000),
+    duedate Instant,
+    repeat String maxlength(255),
+    handlerType String maxlength(255),
+    handlerCfg String maxlength(4000),
+    tenantId String maxlength(255)
+}
+
+entity ActRuTask(act_ru_task) {
+    id String required maxlength(64),
+    rev Long,
+    name String maxlength(255),
+    parentTaskId String maxlength(64),
+    description String maxlength(4000),
+    taskDefKey String maxlength(255),
+    owner String maxlength(255),
+    assignee String maxlength(255),
+    delegation String maxlength(64),
+    priority Long,
+    createTime Instant,
+    dueDate Instant,
+    category String maxlength(255),
+    suspensionState Long,
+    tenantId String maxlength(255),
+    formKey String maxlength(255),
+    claimTime Instant
+}
+
+entity ActRuTimerJob(act_ru_timer_job) {
+    id String required maxlength(64),
+    rev Long,
+    type String required maxlength(255),
+    lockExpTime Instant,
+    lockOwner String maxlength(255),
+    exclusive Boolean,
+    retries Long,
+    exceptionMsg String maxlength(4000),
+    duedate Instant,
+    repeat String maxlength(255),
+    handlerType String maxlength(255),
+    handlerCfg String maxlength(4000),
+    tenantId String maxlength(255)
+}
+
+entity ActRuVariable(act_ru_variable) {
+    id String required maxlength(64),
+    rev Long,
+    type String required maxlength(255),
+    name String required maxlength(255),
+    taskId String maxlength(64),
+    double Double,
+    long Long,
+    text String maxlength(4000),
+    text2 String maxlength(4000)
+}
+
+entity BatchJobExecution(batch_job_execution) {
+    jobExecutionId Long required,
+    version Long,
+    createTime Instant required,
+    startTime Instant,
+    endTime Instant,
+    status String maxlength(10),
+    exitCode String maxlength(2500),
+    exitMessage String maxlength(2500),
+    lastUpdated Instant,
+    jobConfigurationLocation String maxlength(2500)
+}
+
+entity BatchJobExecutionContext(batch_job_execution_context) {
+    shortContext String required maxlength(2500),
+    serializedContext String
+}
+
+entity BatchJobExecutionParams(batch_job_execution_params) {
+    typeCd String required maxlength(6),
+    keyName String required maxlength(100),
+    stringVal String maxlength(250),
+    dateVal Instant,
+    longVal Long,
+    doubleVal Double,
+    identifying String required maxlength(1)
+}
+
+entity BatchJobInstance(batch_job_instance) {
+    jobInstanceId Long required,
+    version Long,
+    jobName String required unique maxlength(100),
+    jobKey String required unique maxlength(32)
+}
+
+entity BatchStepExecution(batch_step_execution) {
+    stepExecutionId Long required,
+    version Long required,
+    stepName String required maxlength(100),
+    startTime Instant required,
+    endTime Instant,
+    status String maxlength(10),
+    commitCount Long,
+    readCount Long,
+    filterCount Long,
+    writeCount Long,
+    readSkipCount Long,
+    writeSkipCount Long,
+    processSkipCount Long,
+    rollbackCount Long,
+    exitCode String maxlength(2500),
+    exitMessage String maxlength(2500),
+    lastUpdated Instant
+}
+
+entity BatchStepExecutionContext(batch_step_execution_context) {
+    shortContext String required maxlength(2500),
+    serializedContext String
+}
+
+entity CloudProcessReport(cloud_process_report) {
+    jobIndexableDescriptor String maxlength(255),
+    dateEnd Instant,
+    errorMessage String,
+    jobIndexableFilter String maxlength(255),
+    jobId String maxlength(255),
+    numberTasksFail Long,
+    numberTasksSuccess Long,
+    processType String maxlength(255),
+    reportFilePath String maxlength(255),
+    serviceType String maxlength(255),
+    dateStart Instant,
+    processStatus String maxlength(255)
+}
+
+entity ComJob(com_job) {
+    id String required maxlength(128),
+    jobArgumentsSer String,
+    jobConcurrent Boolean,
+    jobDisabled Boolean,
+    jobGroup String maxlength(255),
+    jobLink String maxlength(256),
+    jobName String required maxlength(255),
+    jobTargetBeanName String maxlength(128),
+    jobTargetClass String maxlength(255),
+    jobTargetMethod String required maxlength(128)
+}
+
+entity ComJobTrigger(com_job_trigger) {
+    triggerSer String required
+}
+
+entity ComLabel(com_label) {
+    lblLocale String required maxlength(32),
+    lblValue String required maxlength(2048)
+}
+
+entity ComLabelSet(com_label_set) {
+    lbsFamily String required maxlength(256),
+    lbsKey String required maxlength(256)
+}
+
+entity ComProperty(com_property) {
+    id String required maxlength(128),
+    propFormat String maxlength(256),
+    propKey String required maxlength(256),
+    propPosition Long,
+    propType String maxlength(32),
+    propValue String maxlength(4000)
+}
+
+entity ComPropertyGroup(com_property_group) {
+    prgpId String required maxlength(255),
+    prgpName String maxlength(64)
+}
+
+entity CustomerAffair(customer_affair) {
+    codAffair String required maxlength(32),
+    libAffair String maxlength(255),
+    logoAffair String maxlength(255),
+    numOrdAffair Long,
+    libcouAffair String maxlength(255)
+}
+
+entity CustomerArrondi(customer_arrondi) {
+    codArrondi String maxlength(255)
+}
+
+entity CustomerArrondiClient(customer_arrondi_client) {
+    arrClt String required maxlength(4),
+    codArrondi String maxlength(255)
+}
+
+entity CustomerArrondiGlobal(customer_arrondi_global) {
+    codGpemar String required maxlength(32),
+    codHiepdt String required maxlength(255),
+    codNivhiepdt String required maxlength(255),
+    arrClt String required maxlength(4),
+    codArrondi String maxlength(255)
+}
+
+entity CustomerArticle(customer_article) {
+    codArticle String required maxlength(32),
+    codGpeart1 String maxlength(255),
+    nbrMesnet BigDecimal,
+    datFerven LocalDate,
+    libComment1 String maxlength(255),
+    datLimpro LocalDate,
+    datMadcli LocalDate,
+    codExpe String maxlength(255),
+    libExpe String maxlength(255),
+    codGencod String maxlength(255),
+    htrProdui Long,
+    libProdui String maxlength(255),
+    libReduit String maxlength(255),
+    prfProdui Long,
+    codUnimesgen String maxlength(255),
+    codGpemar String maxlength(255),
+    flagNvt Boolean,
+    flagTop Boolean,
+    codClasse String maxlength(255),
+    typObjet String maxlength(255),
+    datOuvven LocalDate,
+    pdsBrut BigDecimal,
+    typPdt String maxlength(255),
+    stsVarpro String maxlength(255),
+    typRup String maxlength(255),
+    libRupture String maxlength(255),
+    libTyprup String maxlength(255),
+    codStatut String maxlength(255),
+    lrgProdui Long,
+    codCanal String maxlength(255),
+    codOrgcom String maxlength(255),
+    codHiepdt String maxlength(255),
+    codMarque String maxlength(255),
+    libMarque String maxlength(255),
+    subBrand String maxlength(255),
+    subAxe String maxlength(255),
+    classe String maxlength(255),
+    function String maxlength(255),
+    nuance String maxlength(255)
+}
+
+entity CustomerAssortiment(customer_assortiment) {
+    datDebapp LocalDate required,
+    datFinapp LocalDate,
+    codOrgcom String required maxlength(32),
+    codCanal String required maxlength(32),
+    idClient String maxlength(255)
+}
+
+entity CustomerCalendar(customer_calendar) {
+    datFer Instant required
+}
+
+entity CustomerClient(customer_client) {
+    numClient Long required,
+    adrNumvoi String maxlength(255),
+    arrClt String maxlength(255),
+    binB2bSaisieCde Boolean,
+    binB2bSuiviCde Boolean,
+    binBlocage Boolean,
+    codFormejuridique String maxlength(255),
+    codSurface String maxlength(255),
+    codTypint String maxlength(255),
+    codTypmag String maxlength(255),
+    codPostal String maxlength(255),
+    nomConcateneClient String maxlength(255),
+    codNivhiecli String maxlength(255),
+    hierarchyKey String maxlength(255),
+    libFormejuridique String maxlength(255),
+    libSurface String maxlength(255),
+    libTypappr String maxlength(255),
+    libTypint String maxlength(255),
+    libTypmag String maxlength(255),
+    libVille String maxlength(255),
+    nomClient String maxlength(255),
+    nomCliens String maxlength(255),
+    nomHierarchieClient String maxlength(255),
+    numCliens Long,
+    codAffair String maxlength(32),
+    codCanal String maxlength(255),
+    codOrgcom String maxlength(255),
+    idClient String maxlength(255),
+    codTypappr String maxlength(10)
+}
+
+entity CustomerCodeInterne(customer_code_interne) {
+    codNivhiecli String maxlength(255),
+    codPdtint String maxlength(255)
+}
+
+entity CustomerComposition(customer_composition) {
+    nbrCompos Long
+}
+
+entity CustomerFiliereClient(customer_filiere_client) {
+    typeLieuFonction String required maxlength(255),
+    adresseLieuFonction String maxlength(255),
+    typBli String maxlength(255),
+    codDev String maxlength(255),
+    filDefaut String maxlength(255),
+    libInsliv1 String maxlength(255),
+    libInsliv2 String maxlength(255),
+    binLivven Boolean,
+    binLivlun Boolean,
+    binLivsam Boolean,
+    binLivdim Boolean,
+    binLivjeu Boolean,
+    binLivmar Boolean,
+    binLivmer Boolean,
+    nameLieuFonction String maxlength(255),
+    townLieuFonction String maxlength(255),
+    idClient String maxlength(255)
+}
+
+entity CustomerFurniture(customer_furniture) {
+    codFurniture String required maxlength(32),
+    binB2b Boolean,
+    codMarque String maxlength(255),
+    datCre Instant,
+    datFinapp Instant,
+    libFurniture String maxlength(255),
+    numOrdre Long,
+    datDebapp Instant,
+    typFurniture String maxlength(10),
+    lrgFurniture Long,
+    idClient String maxlength(255),
+    libMarque String maxlength(255),
+    francoAmount BigDecimal
+}
+
+entity CustomerInternalHierarchy(customer_internal_hierarchy) {
+    hieLevel Long required,
+    hieValue Long
+}
+
+entity CustomerLogisticUnit(customer_logistic_unit) {
+    codUq String required maxlength(10),
+    codGencod String maxlength(255),
+    htrProdui Long,
+    prfProdui Long,
+    pdsBrut BigDecimal,
+    htrSupgen Long,
+    libSupgen String maxlength(255),
+    lrgSupgen Long,
+    pdsSupgen BigDecimal,
+    typSupgen String maxlength(255),
+    prfSupgen Long,
+    nbrUvc Long,
+    lrgProdui Long
+}
+
+entity CustomerOrganization(customer_organization) {
+    codOrgcom String required maxlength(255),
+    libOrgcom String maxlength(255)
+}
+
+entity CustomerPrice(customer_price) {
+    datFinval Instant required,
+    datDebval Instant required,
+    prixCat BigDecimal,
+    id String required maxlength(255)
+}
+
+entity CustomerProductHierarchy(customer_product_hierarchy) {
+    codHiepdt String required maxlength(255),
+    libHiepdt String maxlength(255),
+    codNivhiepdt Long,
+    numOrd Long,
+    codNivhiepdtsup Long
+}
+
+entity CustomerTargetClient(customer_target_client) {
+    codCible String required maxlength(255)
+}
+
+entity CustomerTargetFurniture(customer_target_furniture) {
+    codCible String required maxlength(255)
+}
+
+entity CustomermigAffair(customermig_affair) {
+    codAffair String required maxlength(32),
+    libAffair String maxlength(255),
+    logoAffair String maxlength(255),
+    numOrdAffair Long,
+    libcouAffair String maxlength(255)
+}
+
+entity CustomermigArrondi(customermig_arrondi) {
+    codArrondi String maxlength(255)
+}
+
+entity CustomermigArrondiClient(customermig_arrondi_client) {
+    arrClt String required maxlength(255),
+    codArrondi String maxlength(255)
+}
+
+entity CustomermigArrondiGlobal(customermig_arrondi_global) {
+    arrClt String required maxlength(255),
+    codNivhiepdt String required maxlength(255),
+    codGpemar String required maxlength(255),
+    codHiepdt String required maxlength(255),
+    codArrondi String maxlength(255)
+}
+
+entity CustomermigArticle(customermig_article) {
+    codArticle String required maxlength(32),
+    codGpeart1 String maxlength(255),
+    codMarque String maxlength(255),
+    libMarque String maxlength(255),
+    nbrMesnet BigDecimal,
+    classe String maxlength(255),
+    datFerven LocalDate,
+    codHiepdt String maxlength(255),
+    libComment1 String maxlength(255),
+    datLimpro LocalDate,
+    datMadcli LocalDate,
+    codExpe String maxlength(255),
+    libExpe String maxlength(255),
+    function String maxlength(255),
+    codGencod String maxlength(255),
+    htrProdui Long,
+    libProdui String maxlength(255),
+    prfProdui Long,
+    codUnimesgen String maxlength(255),
+    codGpemar String maxlength(255),
+    flagNvt Boolean,
+    nuance String maxlength(255),
+    codClasse String maxlength(255),
+    typObjet String maxlength(255),
+    datOuvven LocalDate,
+    pdsBrut BigDecimal,
+    typPdt String maxlength(255),
+    stsVarpro String maxlength(255),
+    typRup String maxlength(255),
+    libRupture String maxlength(255),
+    libTyprup String maxlength(255),
+    libReduit String maxlength(255),
+    codStatut String maxlength(255),
+    subAxe String maxlength(255),
+    subBrand String maxlength(255),
+    flagTop Boolean,
+    lrgProdui Long
+}
+
+entity CustomermigAssortiment(customermig_assortiment) {
+    codCanal String required maxlength(255),
+    codOrgcom String required maxlength(255),
+    datDebapp LocalDate required,
+    idClient String maxlength(255),
+    datFinapp LocalDate
+}
+
+entity CustomermigCalendar(customermig_calendar) {
+    datFer Instant required
+}
+
+entity CustomermigClient(customermig_client) {
+    numClient Long required,
+    adrNumvoi String maxlength(255),
+    arrClt String maxlength(255),
+    binB2bSaisieCde Boolean,
+    binB2bSuiviCde Boolean,
+    binBlocage Boolean,
+    idClient String maxlength(255),
+    codFormejuridique String maxlength(255),
+    codSurface String maxlength(255),
+    codTypappr String maxlength(10),
+    codTypint String maxlength(255),
+    codTypmag String maxlength(255),
+    codAffair String maxlength(255),
+    codCanal String maxlength(255),
+    codOrgcom String maxlength(255),
+    codPostal String maxlength(255),
+    nomConcateneClient String maxlength(255),
+    hierarchyKey String maxlength(255),
+    codNivhiecli String maxlength(255),
+    libFormejuridique String maxlength(255),
+    libSurface String maxlength(255),
+    libTypappr String maxlength(255),
+    libTypint String maxlength(255),
+    libTypmag String maxlength(255),
+    libVille String maxlength(255),
+    nomClient String maxlength(255),
+    nomCliens String maxlength(255),
+    nomHierarchieClient String maxlength(255),
+    numCliens Long
+}
+
+entity CustomermigCodeInterne(customermig_code_interne) {
+    codNivhiecli String maxlength(255),
+    codPdtint String maxlength(255)
+}
+
+entity CustomermigComposition(customermig_composition) {
+    nbrCompos Long
+}
+
+entity CustomermigFiliereClient(customermig_filiere_client) {
+    numLieuFonction Long required,
+    typeLieuFonction String required maxlength(255),
+    adresseLieuFonction String maxlength(255),
+    typBli String maxlength(255),
+    idClient String maxlength(255),
+    codDev String maxlength(255),
+    filDefaut String maxlength(255),
+    binLivven Boolean,
+    binLivlun Boolean,
+    binLivsam Boolean,
+    binLivdim Boolean,
+    binLivjeu Boolean,
+    binLivmar Boolean,
+    binLivmer Boolean,
+    nameLieuFonction String maxlength(255),
+    townLieuFonction String maxlength(255)
+}
+
+entity CustomermigFurniture(customermig_furniture) {
+    codFurniture String required maxlength(32),
+    binB2b Boolean,
+    codMarque String maxlength(255),
+    libMarque String maxlength(255),
+    idClient String maxlength(255),
+    datCre Instant,
+    datFinapp Instant,
+    francoAmount BigDecimal,
+    libFurniture String maxlength(255),
+    numOrdre Long,
+    datDebapp Instant,
+    typFurniture String maxlength(10),
+    lrgFurniture Long
+}
+
+entity CustomermigFurnitureClient(customermig_furniture_client) {
+    codCible String required maxlength(255),
+    idClient String maxlength(255)
+}
+
+entity CustomermigInternalHierarchy(customermig_internal_hierarchy) {
+    hieLevel Long required,
+    hieValue Long
+}
+
+entity CustomermigLogisticUnit(customermig_logistic_unit) {
+    codUq String required maxlength(10),
+    codGencod String maxlength(255),
+    htrProdui Long,
+    prfProdui Long,
+    pdsBrut BigDecimal,
+    htrSupgen Long,
+    libSupgen String maxlength(255),
+    lrgSupgen Long,
+    pdsSupgen BigDecimal,
+    typSupgen String maxlength(255),
+    prfSupgen Long,
+    nbrUvc Long,
+    lrgProdui Long
+}
+
+entity CustomermigOrganization(customermig_organization) {
+    codOrgcom String required maxlength(255),
+    libOrgcom String maxlength(255)
+}
+
+entity CustomermigPrice(customermig_price) {
+    id String required maxlength(255),
+    datFinval Instant,
+    datDebval Instant,
+    prixCat BigDecimal
+}
+
+entity CustomermigProductHierarchy(customermig_product_hierarchy) {
+    codHiepdt String required maxlength(255),
+    libHiepdt String maxlength(255),
+    codNivhiepdt Long,
+    numOrd Long
+}
+
+entity CustomermigTargetClient(customermig_target_client) {
+    codCible String required maxlength(255)
+}
+
+entity CustomermigTargetFurniture(customermig_target_furniture) {
+    codCible String required maxlength(255)
+}
+
+entity DocStatusLabels(doc_status_labels) {
+    labels String maxlength(255),
+    name String required maxlength(255)
+}
+
+entity DocStatusValuesMapping(doc_status_values_mapping) {
+}
+
+entity DocStsValues(doc_sts_values) {
+    envCode String maxlength(255),
+    style String maxlength(255)
+}
+
+entity DocumentStatus(document_status) {
+    statusCode String required maxlength(255)
+}
+
+entity EdifactMerger(edifact_merger) {
+    id String required maxlength(255),
+    numberofexecutionbycompany Long required
+}
+
+entity GcmCampaign(gcm_campaign) {
+    dateBegin Instant,
+    code String required maxlength(8),
+    creationDate Instant,
+    description String maxlength(4096),
+    dateEnd Instant,
+    modificationDate Instant,
+    name String maxlength(256),
+    reminderDelay Long,
+    reminderDelayUnit Long,
+    reminderSnoozeCount Long,
+    reminderSnoozeInterval Long,
+    reminderSnoozeIntervalUnit Long,
+    reminderSnoozeTemplate String maxlength(515),
+    reminderTemplate String maxlength(515),
+    state String required maxlength(32)
+}
+
+entity GcmCampaignInstance(gcm_campaign_instance) {
+    creationDate Instant,
+    rdmDateDeployed Instant,
+    rdmDateIntegrated Instant,
+    modificationDate Instant,
+    rdmDateQualified Instant,
+    tkiRemindedCount Long,
+    tkiRemindedDate Instant,
+    state String required maxlength(32)
+}
+
+entity GcmCampaignTask(gcm_campaign_task) {
+    actionName String maxlength(128),
+    completionBounded Boolean,
+    taskState String required maxlength(32),
+    taskId Long,
+    taskTitle String maxlength(255)
+}
+
+entity GcmCampaignTaskInstance(gcm_campaign_task_instance) {
+    tkiCompletion Long required,
+    tkiMilestone Instant,
+    tkiState String required maxlength(32)
+}
+
+entity GnxDescriptionField(gnx_description_field) {
+    carForma String maxlength(5),
+    carTruncate String maxlength(5),
+    comments String maxlength(30),
+    decimalSeparator String maxlength(3),
+    envLeft String maxlength(5),
+    envRight String maxlength(5),
+    format String maxlength(10),
+    formate String required maxlength(1),
+    framing String maxlength(1),
+    identifiant String maxlength(35),
+    length Long,
+    lenghtMax Long,
+    lenghtMin Long,
+    libelle String required unique maxlength(30),
+    mandatory Boolean,
+    norder Long,
+    position Long required,
+    truncate String maxlength(1),
+    type String required maxlength(3),
+    valueDefault String maxlength(35)
+}
+
+entity GnxDescriptionFile(gnx_description_file) {
+    carFormatAlpha String maxlength(5),
+    carFormatNumeric String maxlength(5),
+    carTruncateAlpha String maxlength(5),
+    carTrucateNumeric String maxlength(5),
+    comments String maxlength(255),
+    creationDate Instant required,
+    dataSeparator String maxlength(5),
+    envLeftAlpha String maxlength(5),
+    envLeftNum String maxlength(5),
+    envRightAlpha String maxlength(5),
+    envRightNum String maxlength(5),
+    inhibDataSeparator String maxlength(5),
+    inhibEnvLeft String maxlength(5),
+    inhibEnvRight String maxlength(5),
+    libelle String required unique maxlength(30),
+    lockDate Instant,
+    modificationDate Instant,
+    lineSeparator String maxlength(5),
+    typeFormat String required maxlength(1)
+}
+
+entity GnxDescriptionLine(gnx_description_line) {
+    levels Long required,
+    libelle String required unique maxlength(30),
+    mandatory Boolean required,
+    nOrder Long required,
+    occurence Long required
+}
+
+entity GnxEdiCompositionMessage(gnx_edi_composition_message) {
+    isgroup Boolean required,
+    levelSegment Long required,
+    mandatory Boolean required,
+    nOrder Long required,
+    namegroup String maxlength(6),
+    occurence Long required
+}
+
+entity GnxEdiCompositionSegment(gnx_edi_composition_segment) {
+    codeElement String required maxlength(7),
+    mandatory Boolean required,
+    nOrder Long required unique
+}
+
+entity GnxEdiDictionary(gnx_edi_dictionary) {
+    creationDate Instant required,
+    libelle String required unique maxlength(35),
+    modificationDate Instant,
+    norme String required maxlength(12),
+    typeSyntax String required maxlength(1)
+}
+
+entity GnxEdiElementcomposite(gnx_edi_elementcomposite) {
+    information String maxlength(255),
+    libelleComposite String required unique maxlength(7),
+    mandatory Boolean required,
+    position Long required unique
+}
+
+entity GnxEdiElementdonnee(gnx_edi_elementdonnee) {
+    codeElement String required maxlength(7),
+    information String maxlength(255),
+    iscomposite Boolean required,
+    max Long,
+    min Long,
+    libelle String required maxlength(50),
+    typeElement String required maxlength(3)
+}
+
+entity GnxEdiMessages(gnx_edi_messages) {
+    association String maxlength(2),
+    codeMessage String required maxlength(6),
+    creationDate Instant required,
+    information String maxlength(255),
+    libelle String required unique maxlength(35),
+    lockDate Instant,
+    modificationDate Instant,
+    releaseMessage String maxlength(3),
+    versionMessage String maxlength(3)
+}
+
+entity GnxEdiSegments(gnx_edi_segments) {
+    codeSegment String required unique maxlength(3),
+    description String maxlength(255),
+    libelle String required maxlength(35)
+}
+
+entity GnxFlowBpInfo(gnx_flow_bp_info) {
+    creationDate Instant required,
+    executionId String required maxlength(256),
+    processId String maxlength(256),
+    processInstanceId String maxlength(256),
+    processName String maxlength(256),
+    reportRef String maxlength(255),
+    triggerRoutingKey String maxlength(256)
+}
+
+entity GnxFlowLogItem(gnx_flow_log_item) {
+    creationDate Instant required,
+    logLevel String maxlength(32),
+    message String maxlength(4000)
+}
+
+entity GnxFlowObject(gnx_flow_object) {
+    type String required maxlength(6),
+    id String required maxlength(128),
+    creationDate Instant required,
+    filePath String maxlength(1024),
+    modificationDate Instant required,
+    routeId String required maxlength(256),
+    routingKey String maxlength(1024),
+    status String required maxlength(32),
+    version Long,
+    originalFileName String maxlength(512)
+}
+
+entity GnxHost(gnx_host) {
+    creationDate Instant,
+    description String maxlength(512),
+    modificationDate Instant,
+    name String required unique maxlength(255),
+    template String required maxlength(255),
+    theme String required maxlength(32),
+    angularTemplate String maxlength(255)
+}
+
+
+entity GnxI18nTranslation(gnx_i18n_translation) {
+    code String required unique maxlength(64),
+    defaultValue String,
+    newValue String,
+    locale String unique maxlength(16),
+    defaultValueChangedAt ZonedDateTime,
+    newValueChangedAt ZonedDateTime
+}
+
+entity GnxInstance(gnx_instance) {
+    id String required maxlength(128),
+    tla String required unique maxlength(3),
+    cfgAuthEndpoint String maxlength(255),
+    cfgAuthMailTemplate String maxlength(255),
+    cfgContact String maxlength(512),
+    cfgContactSubject String maxlength(512),
+    cfgCookie Boolean,
+    cfgCookieDescription String maxlength(2048),
+    cfgCookieTitle String maxlength(2048),
+    cfgLanguageDefault String maxlength(255),
+    cfgFromAddress String maxlength(512),
+    cfgLanguages String maxlength(255),
+    cfgPasswordMessage String maxlength(2048),
+    cfgSelfRegister Boolean,
+    cfgSelfRegisterPh1 String maxlength(255),
+    cfgSelfRegisterPh2 String maxlength(255),
+    cfgSsoAuthenticationChannel String maxlength(2048),
+    cfgSsoButtonTitle String maxlength(2048),
+    cfgSsoMetadata String maxlength(2048),
+    cfgWorkflowNotification Boolean,
+    creationDate Instant required,
+    description String maxlength(2048),
+    modificationDate Instant,
+    name String required maxlength(1024),
+    state String required maxlength(32),
+    type String maxlength(32),
+    dedicated Boolean,
+    cfgSsoAuthorizePartners Boolean
+}
+
+entity GnxMessage(gnx_message) {
+    messageType String required maxlength(31),
+    content String maxlength(4000),
+    messageDate Instant required,
+    disabled Boolean,
+    endDate Instant,
+    label String maxlength(512),
+    language String maxlength(255),
+    processedStatus String required maxlength(20),
+    replyTo String maxlength(128),
+    sentDate Instant,
+    severity String required maxlength(8),
+    startDate Instant,
+    subject String maxlength(512),
+    contactMode String maxlength(32),
+    messageArgumentArray String maxlength(255),
+    messageBaseKey String maxlength(128)
+}
+
+entity GnxMessageRecipient(gnx_message_recipient) {
+    groupAssociation Long
+}
+
+entity GnxMessageStatus(gnx_message_status) {
+    status String maxlength(255)
+}
+
+entity GnxStateTransition(gnx_state_transition) {
+    trsComment String maxlength(255),
+    trsDate Instant required,
+    trsResource String required maxlength(256),
+    trsSource String maxlength(64),
+    trsTarget String required maxlength(64),
+    trsType String maxlength(64)
+}
+
+entity LrlCart(lrl_cart) {
+    datCreation LocalDate,
+    datDelivery LocalDate,
+    codBrandFurniture String maxlength(255),
+    codTypeFurniture String maxlength(255)
+}
+
+entity LrlCartItem(lrl_cart_item) {
+    codArticle String maxlength(255),
+    gencode String maxlength(255),
+    label String maxlength(255),
+    price BigDecimal,
+    quantity BigDecimal
+}
+
+entity PtlPortal(ptl_portal) {
+    definition String,
+    name String required maxlength(128),
+    owner String required maxlength(128),
+    style String maxlength(1024),
+    styleClass String maxlength(512)
+}
+
+entity RecRelation(rec_relation) {
+    recId Long required,
+    recCreationDate Instant
+}
+
+entity SecAccessControlEntry(sec_access_control_entry) {
+    aceId Long required,
+    aceIsNegative Boolean,
+    acePrincipalId String maxlength(256),
+    acePrincipalType String required maxlength(512)
+}
+
+entity SecAccessControlList(sec_access_control_list) {
+    aclId Long required,
+    aclName String required unique maxlength(200)
+}
+
+entity SecExchange(sec_exchange) {
+    exchangeDirection String required maxlength(2),
+    exchangeIdentifier String required maxlength(255),
+    exchangeKind String required maxlength(50),
+    exchangeEnd Instant,
+    exchangeStart Instant
+}
+
+entity SecGroup(sec_group) {
+    groupId String required maxlength(100),
+    code String maxlength(255),
+    groupComment String maxlength(1024),
+    groupCreation Instant,
+    groupDescription String required maxlength(32),
+    duns String maxlength(128),
+    freeBoolean01 Boolean,
+    freeBoolean02 Boolean,
+    freeDate01 Instant,
+    freeDate02 Instant,
+    freeDouble01 Double,
+    freeDouble02 Double,
+    freeTextLong01 String maxlength(4000),
+    freeTextLong02 String maxlength(4000),
+    freeText01 String maxlength(255),
+    freeText02 String maxlength(255),
+    freeText03 String maxlength(255),
+    freeText04 String maxlength(255),
+    freeText05 String maxlength(255),
+    freeText06 String maxlength(255),
+    freeText07 String maxlength(255),
+    freeText08 String maxlength(255),
+    freeText09 String maxlength(255),
+    freeView String,
+    freeViewProfile String maxlength(256),
+    groupFullname String maxlength(256),
+    groupLegalStructure String maxlength(255),
+    groupModification Instant,
+    groupName String required unique maxlength(64),
+    groupRegisteredName String maxlength(255),
+    registration String maxlength(255),
+    groupShareCapital String maxlength(255),
+    vat String maxlength(255),
+    groupVatRegime String maxlength(255),
+    groupEreportingOption String maxlength(255),
+    groupLogoL Blob,
+    groupLogoM Blob,
+    groupLogoS Blob
+}
+
+entity SecGroupApplication(sec_group_application) {
+}
+
+entity SecGroupCompany(sec_group_company) {
+    ssccAutoGeneration Boolean,
+    isClient Boolean,
+    collaborativeId String maxlength(255),
+    email String maxlength(128),
+    ssccExtension String maxlength(1),
+    fax String maxlength(64),
+    ssccGs1 String maxlength(10),
+    orderContact String maxlength(256),
+    orderEmail String maxlength(2048),
+    orderFax String maxlength(64),
+    orderPhone String maxlength(64),
+    phone String maxlength(64),
+    ssccSerialReference String maxlength(9),
+    subscriberId String unique maxlength(255),
+    web String maxlength(128)
+}
+
+entity SecGroupPartner(sec_group_partner) {
+    ssccAutoGeneration Boolean,
+    isClient Boolean,
+    collaborativeId String maxlength(255),
+    email String maxlength(128),
+    ssccExtension String maxlength(1),
+    fax String maxlength(64),
+    ssccGs1 String maxlength(10),
+    orderContact String maxlength(256),
+    orderEmail String maxlength(2048),
+    orderFax String maxlength(64),
+    orderPhone String maxlength(64),
+    phone String maxlength(64),
+    ssccSerialReference String maxlength(9),
+    subscriberId String unique maxlength(255),
+    web String maxlength(128),
+    connectionCode String maxlength(5),
+    partnerDisabled Boolean,
+    partnerRole String maxlength(64)
+}
+
+entity SecGroupRole(sec_group_role) {
+    roleQuery String maxlength(255)
+}
+
+entity SecOrderingParty(sec_ordering_party) {
+    ordPartyIdentifier String required maxlength(255),
+    ordPartyEnvCode String required maxlength(255),
+    ordPartyPartNo Long,
+    ordPartyName String required maxlength(255),
+    ordPartyDescription String maxlength(255),
+    ordDiagramModel String,
+    ordPartyOrdrspMsgConfig String,
+    ordPartyAsnMsgConfig String,
+    ordPartyInvMsgConfig String
+}
+
+entity SecPerimeter(sec_perimeter) {
+    perimeterId Long required,
+    code String required unique maxlength(64),
+    companyId String maxlength(256),
+    name String maxlength(256)
+}
+
+entity SecPerimeterPartners(sec_perimeter_partners) {
+    id Long required
+}
+
+entity SecPermission(sec_permission) {
+    permId Long required,
+    permResourceId String maxlength(512),
+    permPermission Long
+}
+
+entity SecPrincipalLocation(sec_principal_location) {
+    id String required maxlength(128),
+    accuracy Long,
+    addressComplement String maxlength(128),
+    cedex String maxlength(16),
+    city String maxlength(128),
+    remark String maxlength(256),
+    altitude Double,
+    altitudeMode Long,
+    latitude Double,
+    longitude Double,
+    country String maxlength(32),
+    county String maxlength(128),
+    line String maxlength(512),
+    postalCode String maxlength(16),
+    state String maxlength(128),
+    streetName String maxlength(128),
+    streetNumber String maxlength(16),
+    streetType String maxlength(32),
+    isDefault Boolean,
+    name String maxlength(256)
+}
+
+entity SecRelation(sec_relation) {
+    relationId Long required,
+    relationChannel Long required,
+    relationPartnerCode String required maxlength(64),
+    relationPartnerVat String maxlength(64),
+    relationCompanyName String required maxlength(64),
+    relationDuns String maxlength(64),
+    relationEmail String maxlength(64),
+    relationLegalStructure String maxlength(64),
+    relationRegisteredName String maxlength(64),
+    relationRegistration String maxlength(64),
+    relationShareCapital String maxlength(64),
+    relationVat String maxlength(64)
+}
+
+entity SecRelationGroup(sec_relation_group) {
+    relationGroupId Long required,
+    relationGroupDescription String maxlength(255),
+    relationGroupName String required maxlength(255),
+    relationGroupOwner String required maxlength(255)
+}
+
+entity SecRelationRule(sec_relation_rule) {
+    relationRuleId Long required,
+    relationRuleKey Long,
+    relationRuleValue String maxlength(255)
+}
+
+entity SecUser(sec_user) {
+    userId String required maxlength(255),
+    userBirthday Instant,
+    userComment String maxlength(1024),
+    userCreation Instant,
+    userDatePattern String maxlength(64),
+    userDisabled Boolean,
+    userEmail String maxlength(512),
+    userFax String maxlength(128),
+    userFirstname String maxlength(64),
+    userFullname String maxlength(256),
+    userGender String maxlength(16),
+    userIcon String maxlength(256),
+    userIp String maxlength(128),
+    userLastname String maxlength(64),
+    userLocale String maxlength(16),
+    userLogin String required unique maxlength(128),
+    userLoginCount Long,
+    userLoginDate Instant,
+    userMobile String maxlength(128),
+    userModification Instant,
+    userOpenId String maxlength(512),
+    userPassword String required maxlength(64),
+    userPwdExpirationDate Instant,
+    userPhone String maxlength(128),
+    userLastPasswords String maxlength(512),
+    resetLink String maxlength(255),
+    resetLinkExpirationDate Instant,
+    resetLinkKey String maxlength(255),
+    userTimezone String maxlength(64),
+    userTitle String maxlength(256),
+    userType String required maxlength(32),
+    wkfUserNotification Boolean,
+    wkfNotNotified Boolean,
+    userSelectedTheme String maxlength(100),
+    sessionId String maxlength(255),
+    accessToken String,
+    refreshToken String,
+    switchUserLogin String maxlength(255)
+}
+
+entity SecUserCountersDateRange(sec_user_counters_date_range) {
+    datePeriod Long,
+    wholeRange Boolean,
+    portletId Long required
+}
+
+entity SecUserGroup(sec_user_group) {
+    primaryGroup Boolean
+}
+
+entity SecUserInstructions(sec_user_instructions) {
+    instrUserId String required maxlength(255)
+}
+
+entity TmlTimeline(tml_timeline) {
+    tmlId Long required,
+    tmlAction String maxlength(128),
+    tmlComment String maxlength(2000),
+    tmlDate Instant,
+    tmlNumStep Long,
+    tmlUser String maxlength(255),
+    tmlRedirectUser String maxlength(255)
+}
+
+entity TskCounterManagement(tsk_counter_management) {
+    ownConfiguration Boolean,
+    owner String required maxlength(255),
+    pageId String required maxlength(255),
+    pageTitle String required maxlength(255)
+}
+
+entity TskTaskDefinition(tsk_task_definition) {
+    taskDateCreation Instant,
+    taskDefinition String,
+    taskDescription String maxlength(4096),
+    taskLocked Boolean,
+    taskDateModification Instant,
+    taskOwner String required maxlength(255),
+    taskShowDescription Boolean,
+    taskShowTitle Boolean,
+    taskState String required maxlength(32),
+    taskTitle String required maxlength(1024),
+    taskType String required maxlength(255)
+}
+
+entity TskTaskResult(tsk_task_result) {
+    resultDate Instant required,
+    resultError String maxlength(4000),
+    family String maxlength(128),
+    logs String,
+    resultMessage String maxlength(4000),
+    process String maxlength(128),
+    processId String maxlength(128),
+    processUid String maxlength(128),
+    result String,
+    resultStatus String required maxlength(32),
+    taskAction String required maxlength(128),
+    taskGid String maxlength(128),
+    taskId Long,
+    taskType String required maxlength(256),
+    taskUid String maxlength(128)
+}
+
+entity TskUserTaskDefinition(tsk_user_task_definition) {
+    portletId Long,
+    descriptor Blob
+}
+
+entity UserFilter(user_filter) {
+    name String required unique maxlength(255),
+    creationDate ZonedDateTime,
+    attributes String,
+    sortBy String maxlength(255)
+}
+
+entity WkfCustomAction(wkf_custom_action) {
+    caId Long required,
+    caName String maxlength(128),
+    caAction Long,
+    caConfirmation Boolean,
+    caConfirmName String maxlength(128),
+    caFormPage String maxlength(128),
+    caProcess String maxlength(128)
+}
+
+entity WkfDocumentStatus(wkf_document_status) {
+    wkfDocStsId Long required,
+    wkfUserEmail String maxlength(128),
+    wkfModificationDate Instant,
+    wkfNRemind Long,
+    wkfNumStep Long,
+    wkfPauseNotif Boolean,
+    wkfUserId String maxlength(255)
+}
+
+entity WkfFunction(wkf_function) {
+    wkfFunctionId Long required,
+    wkfFunctionAuthor String maxlength(255),
+    wkfFunctionDescription String maxlength(1024),
+    wkfFunctionName String maxlength(128),
+    wkfFunctionOwners String maxlength(50)
+}
+
+entity WkfFunctionUser(wkf_function_user) {
+    wkfFunctionUserId Long required,
+    wkfFunctionUserAuthor String maxlength(255)
+}
+
+entity WkfStep(wkf_step) {
+    wkfNumStep Long required,
+    wkfBqlFilter Boolean,
+    wkfEnrich Boolean,
+    wkfPauseNotif Boolean,
+    wkfPortletId Long,
+    wkfRedirect Boolean,
+    wkfRefuse Boolean,
+    wkfExchangeDirection String maxlength(100),
+    wkfTemplate String maxlength(100),
+    wkfReminderTemplate String maxlength(255),
+    wkfReminderFrequency String maxlength(100),
+    wkfNRemindBeforeNextStep Long,
+    wkfNRemindBeforeWarning Long
+}
+
+entity WkfStepAction(wkf_step_action) {
+}
+
+entity WkfStepRedirect(wkf_step_redirect) {
+    wkfStepRedirectId Long required,
+    wkfEnrich Boolean,
+    wkfOriginalUserId String required maxlength(255),
+    wkfPortletId Long,
+    wkfRedirectUserId String required maxlength(255),
+    wkfRefuse Boolean
+}
+
+entity WkfStepUser(wkf_step_user) {
+    wkfUserId String required maxlength(255)
+}
+
+entity WkfUserBackup(wkf_user_backup) {
+    wkfUserBackupId Long required,
+    wkfBeginDate LocalDate required,
+    wkfEndDate LocalDate,
+    wkfUserIdBackup String required maxlength(255),
+    wkfUserIdOff String required maxlength(255)
+}
+
+entity WkfWorkflow(wkf_workflow) {
+    wkfId Long required,
+    wkfBqlFilter String maxlength(5000),
+    wkfCollection String maxlength(50),
+    wkfDescription String maxlength(1024),
+    wkfEndDate Instant,
+    wkfName String maxlength(128),
+    wkfOwners String maxlength(50),
+    wkfSortnumber Long,
+    wkfAuthor String maxlength(255),
+    wkfLastModifiedBy String maxlength(255),
+    wkfModificationDate Instant,
+    wkfLastUseDate Instant,
+    wkfNumberOfUses Long
+}
+
+entity XtdCachingStatus(xtd_caching_status) {
+    docId Long required,
+    docIdxType String unique maxlength(255),
+    docOwners String unique maxlength(255)
+}
+
+entity XtdCategory(xtd_category) {
+    catId Long required,
+    catCode String required unique maxlength(17),
+    catDescription String maxlength(256),
+    catName String maxlength(17)
+}
+
+entity XtdDeadDocument(xtd_dead_document) {
+    deadCreationDate Instant,
+    deadErrors String,
+    deadFrom String maxlength(255),
+    deadOwners String maxlength(255),
+    deadProcess String maxlength(255),
+    deadTo String maxlength(255),
+    deadType String maxlength(255)
+}
+
+entity XtdDeadDocumentFiles(xtd_dead_document_files) {
+    deadFileUri String maxlength(255)
+}
+
+entity XtdDocErrorTranslation(xtd_doc_error_translation) {
+    errorCode String required maxlength(255),
+    languageCode String required maxlength(255),
+    errorLabel String maxlength(1024),
+    standardError Boolean
+}
+
+entity XtdDocument(xtd_document) {
+    docId Long required,
+    docAcquisition Long,
+    docArchiveStatus Long,
+    docCreationDate Instant,
+    docEmail String maxlength(512),
+    docFrom String maxlength(255),
+    docIdxCol String maxlength(255),
+    docIdxId String maxlength(255),
+    docIdxRef String maxlength(255),
+    docIdxType String maxlength(255),
+    docIssuedate Instant,
+    docLinCount Long,
+    docModificationDate Instant,
+    docNumber String maxlength(255),
+    docOwners String maxlength(255),
+    docPurpose String maxlength(255),
+    docReference String maxlength(255),
+    docRevision Long,
+    docStage Long,
+    docSubtype String maxlength(255),
+    docTo String maxlength(255),
+    docTransport String maxlength(255),
+    docType String maxlength(255),
+    docUuid String unique maxlength(255),
+    docOrderingParty String maxlength(255),
+    docConsultstatus Long,
+    docProcessingWay Long,
+    docTranslator String maxlength(255),
+    docThirdParty String maxlength(255),
+    docNature String maxlength(255),
+    docImmatpdp String maxlength(255),
+    docB2gRules String maxlength(255),
+    docEreportingOption String maxlength(255),
+    docCountryRules1 String maxlength(255),
+    docCountryRules2 String maxlength(255)
+}
+
+entity XtdDocumentError(xtd_document_error) {
+    docErrorId Long required,
+    defaultLabel String maxlength(1024),
+    errorCode String maxlength(255),
+    docUuid String maxlength(255),
+    errorParams String maxlength(255)
+}
+
+entity XtdDocumentFile(xtd_document_file) {
+    dofId Long required,
+    dofActionName String maxlength(255),
+    dofAuthor String maxlength(256),
+    dofComment String maxlength(1024),
+    dofCreationDate Instant,
+    dofDescription String maxlength(1024),
+    dofLocale String maxlength(255),
+    dofPermission String maxlength(512),
+    dofProcessInstance String maxlength(255),
+    dofSubtype String maxlength(512),
+    dofType Long,
+    dofUri String required maxlength(512)
+}
+
+entity XtdFile(xtd_file) {
+    fileId Long required,
+    fileCreationDate Instant required,
+    fileEncoding String required maxlength(32),
+    fileMimetype String required maxlength(32),
+    fileModificationDate Instant,
+    fileName String required maxlength(248),
+    fileContent Blob
+}
+
+entity XtdIpmDeployment(xtd_ipm_deployment) {
+    deploymentStarted Boolean,
+    deploymentDate Instant,
+    allowParallel Boolean,
+    definitionId String maxlength(256),
+    definitionKey String maxlength(256),
+    definitionName String maxlength(256),
+    owner String maxlength(256),
+    definitionVersion String maxlength(256),
+    deploymentError String maxlength(1024),
+    deploymentId String maxlength(256),
+    deploymentName String maxlength(256),
+    engine String maxlength(256),
+    processVersion String maxlength(128)
+}
+
+entity XtdIpmProcess(xtd_ipm_process) {
+    processType String required maxlength(128),
+    id String required maxlength(128),
+    allowParallel Boolean,
+    checkIntegrity Boolean,
+    creationDate Instant required,
+    lockDate Instant,
+    modelJson String,
+    modificationDate Instant,
+    name String required maxlength(64),
+    userVersion String maxlength(128)
+}
+
+entity XtdIpmProcessListener(xtd_ipm_process_listener) {
+    id String required maxlength(128),
+    ltrEvent String maxlength(256),
+    ltrImpl String,
+    ltrImplClass String maxlength(512),
+    ltrImplType String required maxlength(64),
+    ltrScope String required maxlength(64),
+    ltrTarget String required maxlength(64),
+    ltrTargetKey String maxlength(256)
+}
+
+entity XtdIpmProcessTrigger(xtd_ipm_process_trigger) {
+    triggerSer String required maxlength(4096)
+}
+
+entity XtdIpmProject(xtd_ipm_project) {
+    id String required maxlength(255),
+    code String required maxlength(128),
+    creationDate Instant required,
+    description String maxlength(2048),
+    modificationDate Instant,
+    name String required maxlength(256)
+}
+
+entity XtdIpmWorkspace(xtd_ipm_workspace) {
+    id String required maxlength(255),
+    creationDate Instant required,
+    modificationDate Instant,
+    name String required unique maxlength(80)
+}
+
+entity XtdProduct(xtd_product) {
+    pdtId Long required,
+    pdtCatalog String maxlength(35),
+    pdtCode String required unique maxlength(17),
+    pdtColor String maxlength(3),
+    pdtDescription String maxlength(256),
+    pdtDescriptionShort String maxlength(17),
+    pdtLabel String maxlength(35),
+    pdtName String maxlength(17),
+    pdtPosition String maxlength(17),
+    pdtPrice Double,
+    pdtPriceCurrency String maxlength(3),
+    pdtReference String maxlength(17),
+    pdtSize String maxlength(35),
+    pdtWeight Double,
+    pdtWeightUnit String maxlength(3)
+}
+
+entity XtdProductGroup(xtd_product_group) {
+    pgrCode String maxlength(100),
+    pgrLabel String maxlength(100)
+}
+
+service * with serviceClass
+
+paginate * with pagination
+
+dto * with mapstruct
+
+filter *

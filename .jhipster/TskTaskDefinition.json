@@ -1,0 +1,71 @@
+{
+  "applications": "*",
+  "changelogDate": "20231001020400",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "tsk_task_definition",
+  "fields": [
+    {
+      "fieldName": "taskDateCreation",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "taskDefinition",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taskDescription",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "4096"
+    },
+    {
+      "fieldName": "taskLocked",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "taskDateModification",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "taskOwner",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "255"
+    },
+    {
+      "fieldName": "taskShowDescription",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "taskShowTitle",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "taskState",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "32"
+    },
+    {
+      "fieldName": "taskTitle",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "1024"
+    },
+    {
+      "fieldName": "taskType",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "255"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "TskTaskDefinition",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

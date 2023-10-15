@@ -1,0 +1,21 @@
+{
+  "applications": "*",
+  "changelogDate": "20231001020356",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "sec_user_group",
+  "fields": [
+    {
+      "fieldName": "primaryGroup",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "SecUserGroup",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

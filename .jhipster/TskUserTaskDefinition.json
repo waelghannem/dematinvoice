@@ -1,0 +1,26 @@
+{
+  "applications": "*",
+  "changelogDate": "20231001020402",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "tsk_user_task_definition",
+  "fields": [
+    {
+      "fieldName": "portletId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "descriptor",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "TskUserTaskDefinition",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}
