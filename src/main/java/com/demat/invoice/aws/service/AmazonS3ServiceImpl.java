@@ -19,7 +19,7 @@ import static java.lang.System.currentTimeMillis;
  * @author faboulaye
  */
 
-//@Service(AmazonS3ServiceImpl.SERVICE_NAME)
+@Service(AmazonS3ServiceImpl.SERVICE_NAME)
 public class AmazonS3ServiceImpl extends AbstractS3Service {
 
   public static final String SERVICE_NAME = "gnxAmazonS3Service";
