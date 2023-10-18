@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     // Assuming you have Maven installed and configured in your Jenkins environment.
-                    sh 'mvn jib:build'
+                    sh 'mvn clean package jib:build'
                 }
             }
         }
