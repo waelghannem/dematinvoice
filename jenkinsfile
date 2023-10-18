@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE_NAME = 'waelghannem/dematinvoice'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build and Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://hub.docker.com', 'dockerhub-credentials') {
+                        // Build the Docker image
+                        def customImage = docker.build(DOCKER_IMAGE_NAME, "--build-arg BUILD_NUMBER=${BUILD_NUMBER} .")
+
+                        // Push the Docker image to Docker Hub
+                        customImage.push()
+                    }
+                }
+            }
+        }
+    }
+}
