@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_IMAGE_NAME = 'waelghannem/dematinvoice'
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -15,13 +11,8 @@ pipeline {
         stage('Build and Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
-                        // Build the Docker image
-                        def customImage = docker.build(DOCKER_IMAGE_NAME, "--build-arg BUILD_NUMBER=${BUILD_NUMBER} .")
-
-                        // Push the Docker image to Docker Hub
-                        customImage.push()
-                    }
+                    // Assuming you have Maven installed and configured in your Jenkins environment.
+                    sh 'mvn jib:build'
                 }
             }
         }
