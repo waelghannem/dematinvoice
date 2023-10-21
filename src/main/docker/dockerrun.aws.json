@@ -248,7 +248,13 @@
       ],
       "essential": false,
       "command": [
-        "consul agent -dev -ui -client 0.0.0.0 -log-level=INFO"
+        "consul",
+        "agent",
+        "-dev",
+        "-ui",
+        "-client",
+        "0.0.0.0",
+        "-log-level=INFO"
       ],
       "environment": [],
       "environmentFiles": [],
