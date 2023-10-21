@@ -19,8 +19,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Sinks;
 
-@RestController
-@RequestMapping("/api/dematinvoice-kafka")
+//@RestController
+//@RequestMapping("/api/dematinvoice-kafka")
 public class DematinvoiceKafkaResource {
 
     private final Logger log = LoggerFactory.getLogger(DematinvoiceKafkaResource.class);
