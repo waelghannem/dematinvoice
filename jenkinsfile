@@ -14,9 +14,10 @@ pipeline {
         stage('Build and Push Docker Image') {
             steps {
                 script {
+                    def myImageName = params.IMAGE_NAME
                     // Assuming you have Maven installed and configured in your Jenkins environment.
                     sh 'mvn --version'
-                    sh 'mvn clean package jib:build'
+                    sh "mvn clean package jib:build -Dimage.name=${myImageName}"
                 }
             }
         }

@@ -857,7 +857,7 @@
                             </platforms>
                         </from>
                         <to>
-                            <image>waelghannem/dematinvoice:latest</image>
+                            <image>${image.name}</image>
                         </to>
                         <container>
                             <entrypoint>
