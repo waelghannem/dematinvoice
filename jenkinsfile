@@ -17,7 +17,11 @@ pipeline {
                     def myImageName = params.IMAGE_NAME
                     // Assuming you have Maven installed and configured in your Jenkins environment.
                     sh 'mvn --version'
-                    sh "mvn clean package jib:build -Dimage.name=${myImageName}"
+                    // sh "mvn clean package jib:build -Dimage.name=${myImageName}"
+                    withCredentials([credentialsId: 'dockerhub-credentials', url: '']) {
+                       // Build and push the Docker image
+                       sh "mvn clean package jib:build -Dimage.name=${myImageName}"
+                    }
                 }
             }
         }
