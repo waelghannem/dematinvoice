@@ -14,11 +14,11 @@ pipeline {
             steps {
                script {
                   // Get and display Git user.name
-                  def gitUserName = sh(script: 'git config user.name', returnStatus: true).trim()
+                  def gitUserName = sh(script: 'git config user.name', returnStatus: true)
                   echo "Git user.name: $gitUserName"
 
                   // Get and display Git user.email
-                  def gitUserEmail = sh(script: 'git config user.email', returnStatus: true).trim()
+                  def gitUserEmail = sh(script: 'git config user.email', returnStatus: true)
                   echo "Git user.email: $gitUserEmail"
                 }
             }
