@@ -73,9 +73,18 @@ pipeline {
                    pom.version = version
                    writeMavenPom file: pomFile, model: pom
                    // sh "git remote set-url origin https://$USERNAME:$PASSWORD@github.com/$USERNAME/dematinvoice.git"
-                   sh "git config --get remote.origin.url"
-                   sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
-                   sh "git push origin ${tagName} --force"
+                   // sh "git config --get remote.origin.url"
+                   // sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
+                   // sh "git push origin ${tagName} --force"
+                   // Set up the SSH key credential ID
+                   def sshKeyCredentialId = 'jenkins-ssh-key'
+
+                   // Use the SSH key for Git operations
+                   withCredentials([sshUserPrivateKey(credentialsId: sshKeyCredentialId, keyFileVariable: 'SSH_KEY')]) {
+                       sh "git config --get remote.origin.url"
+                       sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
+                       sh "GIT_SSH_COMMAND=\"ssh -i $SSH_KEY\" git push origin ${tagName} --force"
+                   }
                 }
             }
         }
