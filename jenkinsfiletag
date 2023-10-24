@@ -5,9 +5,14 @@ pipeline {
         maven 'maven-3.6.0'
     }
     environment {
-       SAUCE_ACCESS = credentials('git-credentials')
+       SAUCE_ACCESS = credentials('git-admin-credential')
     }
     stages {
+        stage('git credentials init') {
+            steps {
+                git credentialsId: 'git-admin-credential', url: 'https://github.com/waelghannem/dematinvoice.git'
+            }
+        }
         stage('Checkout') {
             steps {
                 checkout scm
@@ -60,7 +65,7 @@ pipeline {
                     // sh "git push origin ${tagName}"
                     // echo "Created and pushed tag: ${tagName}"
                     sh """
-                        git remote set-url origin http://waelghannem:Numeryx2022*-@github.com/waelghannem/dematinvoice
+                        git remote set-url origin http://$USERNAME:$PASSWORD@github.com/waelghannem/dematinvoice
                         git tag -a ${tagName} -m 'Tag for version ${version}'
                         git push origin ${tagName}
                     """
