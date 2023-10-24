@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('git credentials init') {
             steps {
-                git credentialsId: 'git-credentials', url: 'https://github.com/waelghannem/dematinvoice.git'
+                git credentialsId: 'jenkins-git-simple-credentials', url: 'https://github.com/waelghannem/dematinvoice.git'
             }
         }
         stage('Checkout') {
@@ -51,7 +51,7 @@ pipeline {
         stage('Create Tag and push') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'git-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    withCredentials([usernamePassword(credentialsId: 'jenkins-git-simple-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         def version = params.VERSION_NUMBER
                         def tagName = "v${version}"
                         def pomFile = 'pom.xml'
