@@ -62,8 +62,6 @@ pipeline {
                     sh """
                         git remote set-url origin http://$USERNAME:$PASSWORD@github.com/waelghannem/dematinvoice
                         git push origin ${tagName}
-                        // git tag -a GNX-${version_without_suffix} -m 'Version ${version_without_suffix}'
-                        // git push origin GNX-${version_without_suffix}
                     """
                     }
                 }
