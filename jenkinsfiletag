@@ -52,24 +52,18 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'git-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    def version = params.VERSION_NUMBER
-                    def tagName = "v${version}"
-                    def pomFile = 'pom.xml'
-                    echo "USERNAME: ${USERNAME}"
-                    echo "PASSWORD: ${PASSWORD}"
-                    def pom = readMavenPom file: pomFile
-                    pom.version = version
-                    writeMavenPom file: pomFile, model: pom
-                    sh "git remote set-url origin https://$USERNAME:$PASSWORD@github.com/waelghannem/dematinvoice"
-                    sh "git config --get remote.origin.url"
-                    sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
-                    sh "git push origin ${tagName} --force"
-                    // echo "Created and pushed tag: ${tagName}"
-                    sh """
-                        git remote set-url origin http://$USERNAME:$PASSWORD@github.com/waelghannem/dematinvoice
-                        git tag -a ${tagName} -m 'Tag for version ${version}'
-                        git push origin ${tagName}
-                    """
+                        def version = params.VERSION_NUMBER
+                        def tagName = "v${version}"
+                        def pomFile = 'pom.xml'
+                        echo "USERNAME: ${USERNAME}"
+                        echo "PASSWORD: ${PASSWORD}"
+                        def pom = readMavenPom file: pomFile
+                        pom.version = version
+                        writeMavenPom file: pomFile, model: pom
+                        sh "git remote set-url origin https://$USERNAME:$PASSWORD@github.com/$USERNAME/dematinvoice"
+                        sh "git config --get remote.origin.url"
+                        sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
+                        sh "git push origin ${tagName} --force"
                     }
                 }
             }
