@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    tools {
+        // Define the Maven tool and specify the name you configured in Jenkins.
+        maven 'maven-3.6.0'
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Create Tag') {
+            steps {
+                script {
+                    def version = params.VERSION_NUMBER
+                    def tagName = "v${version}"
+                    def pomFile = 'pom.xml'
+                    def pom = readMavenPom file: pomFile
+                    pom.version = versionTag
+                    writeMavenPom file: pomFile, model: pom
+                    sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
+                    sh "git push origin ${tagName}"
+                    echo "Created and pushed tag: ${tagName}"
+                }
+            }
+        }
+        stage('Build and Push Docker Image') {
+            steps {
+                script {
+                    def myImageName = params.IMAGE_NAME
+                    // Assuming you have Maven installed and configured in your Jenkins environment.
+                    sh 'mvn --version'
+                    // sh "mvn clean package jib:build -Dimage.name=${myImageName}"
+                    withDockerRegistry([credentialsId: 'dockerhub-credentials', url: '']) {
+                       // Build and push the Docker image
+                       sh "mvn clean package jib:build -Dimage.name=${myImageName}"
+                    }
+                }
+            }
+        }
+    }
+}
