@@ -47,7 +47,8 @@ pipeline {
             }
         }
         stage('Create Tag and push') {
-                steps {
+            steps {
+                script {
                     withCredentials([usernamePassword(credentialsId: 'git-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     def version = params.VERSION_NUMBER
                     def tagName = "v${version}"
@@ -66,6 +67,7 @@ pipeline {
                     """
                     }
                 }
+            }
         }
         stage('Build and Push Docker Image') {
             steps {
