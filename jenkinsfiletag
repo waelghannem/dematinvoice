@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('git credentials init') {
             steps {
-                git credentialsId: 'jenkins-git-simple-credentials', url: 'https://github.com/waelghannem/dematinvoice.git'
+                git credentialsId: 'git-credentials', url: 'https://github.com/waelghannem/dematinvoice.git'
             }
         }
         stage('Checkout') {
@@ -45,6 +45,24 @@ pipeline {
                     echo "Git user.email: $gitUserEmail"
                     sh "git config --global user.name ${gitUserName}"
                     sh "git config --global user.email ${gitUserEmail}"
+                }
+            }
+        }
+        stage('Create Tag and push') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'git-credentials', variable: 'PAT')]) {
+                        def version = params.VERSION_NUMBER
+                        def tagName = "v${version}"
+                        def pomFile = 'pom.xml'
+                        def pom = readMavenPom file: pomFile
+                        pom.version = version
+                        writeMavenPom file: pomFile, model: pom
+                        sh "git remote set-url origin https://github.com/waelghannem/dematinvoice"
+                        sh "git config --get remote.origin.url"
+                        sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
+                        sh "git push origin ${tagName} --force"
+                    }
                 }
             }
         }
