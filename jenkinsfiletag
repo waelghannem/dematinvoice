@@ -38,8 +38,8 @@ pipeline {
                     // Get and display Git user.email
                     def gitUserEmail = env.GIT_COMMITTER_EMAIL
                     echo "Git user.email: $gitUserEmail"
-                    git config --global user.name $gitUserName
-                    git config --global user.email $gitUserEmail
+                    sh "git config --global user.name ${gitUserName}"
+                    sh "git config --global user.email ${gitUserEmail}"
                 }
             }
         }
