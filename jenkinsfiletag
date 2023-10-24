@@ -59,8 +59,8 @@ pipeline {
                         pom.version = version
                         writeMavenPom file: pomFile, model: pom
 
-                        // Use the PAT to construct the Git URL
-                        def gitUrl = "https://${PAT}@github.com/waelghannem/dematinvoice"
+                        // Use the PAT to construct the Git URL correctly
+                        def gitUrl = "https://${PAT}@github.com/waelghannem/dematinvoice.git"
 
                         sh "git remote set-url origin $gitUrl"
                         sh "git config --get remote.origin.url"
