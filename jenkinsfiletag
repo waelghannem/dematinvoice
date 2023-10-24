@@ -48,6 +48,26 @@ pipeline {
                 }
             }
         } */
+        stage('Create Tag and push v2') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'jenkins-git-simple-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        def version = params.VERSION_NUMBER
+                        def tagName = "v${version}"
+                        def pomFile = 'pom.xml'
+                        echo "USERNAME: ${USERNAME}"
+                        echo "PASSWORD: ${PASSWORD}"
+                        def pom = readMavenPom file: pomFile
+                        pom.version = version
+                        writeMavenPom file: pomFile, model: pom
+                        sh "git remote set-url origin https://github.com/waelghannem/dematinvoice.git"
+                        sh "git config --get remote.origin.url"
+                        sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
+                        sh "git push origin ${tagName} --force"
+                    }
+                }
+            }
+        }
         stage('Create Tag and push v1') {
             steps {
                 script {
@@ -63,26 +83,6 @@ pipeline {
                         def gitUrl = "https://${PAT}@github.com/waelghannem/dematinvoice.git"
 
                         sh "git remote set-url origin $gitUrl"
-                        sh "git config --get remote.origin.url"
-                        sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
-                        sh "git push origin ${tagName} --force"
-                    }
-                }
-            }
-        }
-        stage('Create Tag and push v2') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'jenkins-git-simple-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        def version = params.VERSION_NUMBER
-                        def tagName = "v${version}"
-                        def pomFile = 'pom.xml'
-                        echo "USERNAME: ${USERNAME}"
-                        echo "PASSWORD: ${PASSWORD}"
-                        def pom = readMavenPom file: pomFile
-                        pom.version = version
-                        writeMavenPom file: pomFile, model: pom
-                        sh "git remote set-url origin https://$USERNAME:$PASSWORD@github.com/$USERNAME/dematinvoice"
                         sh "git config --get remote.origin.url"
                         sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
                         sh "git push origin ${tagName} --force"
