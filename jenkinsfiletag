@@ -46,20 +46,26 @@ pipeline {
                 }
             }
         }
-        stage('Create Tag') {
-            steps {
-                script {
+        stage('Create Tag and push') {
+                steps {
+                    withCredentials([usernamePassword(credentialsId: 'git-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     def version = params.VERSION_NUMBER
                     def tagName = "v${version}"
                     def pomFile = 'pom.xml'
                     def pom = readMavenPom file: pomFile
                     pom.version = version
                     writeMavenPom file: pomFile, model: pom
-                    sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
-                    sh "git push origin ${tagName}"
-                    echo "Created and pushed tag: ${tagName}"
+                    // sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
+                    // sh "git push origin ${tagName}"
+                    // echo "Created and pushed tag: ${tagName}"
+                    sh """
+                        git remote set-url origin http://$USERNAME:$PASSWORD@github.com/waelghannem/dematinvoice
+                        git push origin ${tagName}
+                        // git tag -a GNX-${version_without_suffix} -m 'Version ${version_without_suffix}'
+                        // git push origin GNX-${version_without_suffix}
+                    """
+                    }
                 }
-            }
         }
         stage('Build and Push Docker Image') {
             steps {
