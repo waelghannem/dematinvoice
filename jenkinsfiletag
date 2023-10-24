@@ -60,7 +60,7 @@ pipeline {
                     def pom = readMavenPom file: pomFile
                     pom.version = version
                     writeMavenPom file: pomFile, model: pom
-                    sh "git remote set-url origin https://waelghannem:Numeryx2022*-@github.com/waelghannem/project.git"
+                    sh "git remote set-url origin https://$USERNAME:$PASSWORD@github.com/waelghannem/dematinvoice"
                     sh "git config --get remote.origin.url"
                     sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
                     sh "git push origin ${tagName}"
