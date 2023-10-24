@@ -49,6 +49,12 @@ pipeline {
         stage('Create Tag') {
             steps {
                 script {
+                    def gitUrl = sh(script: 'git config --get remote.origin.url', returnStdout: true)
+                    def gitCredentials = env.SAUCE_ACCESS
+                    sh "git config credential.helper 'store --file=\$HOME/.git-credentials'"
+                    sh "echo $gitUrl | sed 's/https:\\/\\//https://$gitCredentials@/' > url.tmp"
+                    sh "git remote set-url origin < url.tmp"
+                    // sh "git push origin master"  // Modify branch as needed
                     def version = params.VERSION_NUMBER
                     def tagName = "v${version}"
                     def pomFile = 'pom.xml'
