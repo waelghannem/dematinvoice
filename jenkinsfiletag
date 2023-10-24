@@ -4,9 +4,6 @@ pipeline {
         // Define the Maven tool and specify the name you configured in Jenkins.
         maven 'maven-3.6.0'
     }
-    environment {
-       SAUCE_ACCESS = credentials('git-admin-credential')
-    }
     stages {
         stage('git credentials init') {
             steps {
@@ -58,6 +55,8 @@ pipeline {
                     def version = params.VERSION_NUMBER
                     def tagName = "v${version}"
                     def pomFile = 'pom.xml'
+                    echo "USERNAME: ${USERNAME}"
+                    echo "PASSWORD: ${PASSWORD}"
                     def pom = readMavenPom file: pomFile
                     pom.version = version
                     writeMavenPom file: pomFile, model: pom
