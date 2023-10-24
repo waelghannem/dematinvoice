@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('git credentials init') {
             steps {
-                git credentialsId: 'git-credentials', url: 'https://github.com/waelghannem/dematinvoice.git'
+                git credentialsId: 'secret-text-git', url: 'https://github.com/waelghannem/dematinvoice.git'
             }
         }
         stage('Checkout') {
@@ -51,7 +51,7 @@ pipeline {
         stage('Create Tag and push v1') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'git-credentials', variable: 'PAT')]) {
+                    withCredentials([string(credentialsId: 'secret-text-git', variable: 'PAT')]) {
                         def version = params.VERSION_NUMBER
                         def tagName = "v${version}"
                         def pomFile = 'pom.xml'
