@@ -4,6 +4,9 @@ pipeline {
         // Define the Maven tool and specify the name you configured in Jenkins.
         maven 'maven-3.6.0'
     }
+    environment {
+       SAUCE_ACCESS = credentials('git-credentials')
+    }
     stages {
         stage('Checkout') {
             steps {
