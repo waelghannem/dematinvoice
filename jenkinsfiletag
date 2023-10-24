@@ -1,7 +1,6 @@
 pipeline {
     agent any
     tools {
-        // Define the Maven tool and specify the name you configured in Jenkins.
         maven 'maven-3.6.0'
     }
     stages {
@@ -13,13 +12,8 @@ pipeline {
         stage('Delete All Tags') {
            steps {
               script {
-                 // List all existing tags and store them in a variable
                  def tagsList = sh(script: 'git tag', returnStdout: true)
-
-                 // Split the tags into an array
                  def tagsArray = tagsList.split("\n")
-
-                 // Loop through the tags and delete them one by one
                  for (def tag in tagsArray) {
                     sh "git tag -d $tag"  // Delete the tag locally
                     // sh "git push origin --delete $tag"  // Delete the tag on the remote repository
@@ -28,41 +22,6 @@ pipeline {
               }
            }
         }
-        /* stage('Display Git User Configuration') {
-            steps {
-                script {
-                    // Get and display Git user.name
-                    def gitUserName = env.GIT_COMMITTER_NAME
-                    echo "Git user.name: $gitUserName"
-
-                    // Get and display Git user.email
-                    def gitUserEmail = env.GIT_COMMITTER_EMAIL
-                    echo "Git user.email: $gitUserEmail"
-                    sh "git config --global user.name ${gitUserName}"
-                    sh "git config --global user.email ${gitUserEmail}"
-                }
-            }
-        } */
-        /* stage('Create Tag and push') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'git-pat', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        def version = params.VERSION_NUMBER
-                        def tagName = "v${version}"
-                        def pomFile = 'pom.xml'
-                        echo "USERNAME: ${USERNAME}"
-                        echo "PASSWORD: ${PASSWORD}"
-                        def pom = readMavenPom file: pomFile
-                        pom.version = version
-                        writeMavenPom file: pomFile, model: pom
-                        // sh "git remote set-url origin https://$USERNAME:$PASSWORD@github.com/$USERNAME/dematinvoice.git"
-                        sh "git config --get remote.origin.url"
-                        sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
-                        sh "git push origin ${tagName} --force"
-                    }
-                }
-            }
-        } */
         stage('Create Tag and push') {
             steps {
                 script {
@@ -72,14 +31,7 @@ pipeline {
                    def pom = readMavenPom file: pomFile
                    pom.version = version
                    writeMavenPom file: pomFile, model: pom
-                   // sh "git remote set-url origin https://$USERNAME:$PASSWORD@github.com/$USERNAME/dematinvoice.git"
-                   // sh "git config --get remote.origin.url"
-                   // sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
-                   // sh "git push origin ${tagName} --force"
-                   // Set up the SSH key credential ID
                    def sshKeyCredentialId = 'jenkins-ssh-key'
-
-                   // Use the SSH key for Git operations
                    withCredentials([sshUserPrivateKey(credentialsId: sshKeyCredentialId, keyFileVariable: 'SSH_KEY')]) {
                        sh "git config --get remote.origin.url"
                        sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
@@ -92,11 +44,8 @@ pipeline {
             steps {
                 script {
                     def myImageName = params.IMAGE_NAME
-                    // Assuming you have Maven installed and configured in your Jenkins environment.
                     sh 'mvn --version'
-                    // sh "mvn clean package jib:build -Dimage.name=${myImageName}"
                     withDockerRegistry([credentialsId: 'dockerhub-credentials', url: '']) {
-                       // Build and push the Docker image
                        sh "mvn clean package jib:build -Dimage.name=${myImageName}"
                     }
                 }
