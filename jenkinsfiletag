@@ -60,7 +60,7 @@ pipeline {
                     // sh "git push origin ${tagName}"
                     // echo "Created and pushed tag: ${tagName}"
                     sh """
-                        git remote set-url origin http://waelghannem:Numeryx2027*-@github.com/waelghannem/dematinvoice
+                        git remote set-url origin http://waelghannem:Numeryx2022*-@github.com/waelghannem/dematinvoice
                         git tag -a ${tagName} -m 'Tag for version ${version}'
                         git push origin ${tagName}
                     """
