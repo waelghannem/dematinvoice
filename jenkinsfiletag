@@ -5,11 +5,11 @@ pipeline {
         maven 'maven-3.6.0'
     }
     stages {
-        stage('git credentials init') {
+        /* stage('git credentials init') {
             steps {
                 git credentialsId: 'secret-text-git', url: 'https://github.com/waelghannem/dematinvoice.git'
             }
-        }
+        } */
         stage('Checkout') {
             steps {
                 checkout scm
@@ -33,7 +33,7 @@ pipeline {
               }
            }
         }
-        stage('Display Git User Configuration') {
+        /* stage('Display Git User Configuration') {
             steps {
                 script {
                     // Get and display Git user.name
@@ -47,7 +47,7 @@ pipeline {
                     sh "git config --global user.email ${gitUserEmail}"
                 }
             }
-        }
+        } */
         stage('Create Tag and push v1') {
             steps {
                 script {
