@@ -12,14 +12,14 @@ pipeline {
         }
         stage('Display Git User Configuration') {
             steps {
-               script {
-                  // Get and display Git user.name
-                  def gitUserName = sh(script: 'git config user.name', returnStatus: true)
-                  echo "Git user.name: $gitUserName"
+                script {
+                    // Get and display Git user.name
+                    def gitUserName = env.GIT_COMMITTER_NAME
+                    echo "Git user.name: $gitUserName"
 
-                  // Get and display Git user.email
-                  def gitUserEmail = sh(script: 'git config user.email', returnStatus: true)
-                  echo "Git user.email: $gitUserEmail"
+                    // Get and display Git user.email
+                    def gitUserEmail = env.GIT_COMMITTER_EMAIL
+                    echo "Git user.email: $gitUserEmail"
                 }
             }
         }
