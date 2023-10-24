@@ -10,6 +10,24 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Delete All Tags') {
+           steps {
+              script {
+                 // List all existing tags and store them in a variable
+                 def tagsList = sh(script: 'git tag', returnStdout: true)
+
+                 // Split the tags into an array
+                 def tagsArray = tagsList.split("\n")
+
+                 // Loop through the tags and delete them one by one
+                 for (def tag in tagsArray) {
+                    sh "git tag -d $tag"  // Delete the tag locally
+                    // sh "git push origin --delete $tag"  // Delete the tag on the remote repository
+                    echo "Deleted tag: $tag"
+                 }
+              }
+           }
+        }
         stage('Display Git User Configuration') {
             steps {
                 script {
