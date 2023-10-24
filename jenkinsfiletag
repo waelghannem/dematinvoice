@@ -5,11 +5,6 @@ pipeline {
         maven 'maven-3.6.0'
     }
     stages {
-        /* stage('git credentials init') {
-            steps {
-                git credentialsId: 'git-pat', url: 'https://github.com/waelghannem/dematinvoice.git'
-            }
-        } */
         stage('Checkout') {
             steps {
                 checkout scm
@@ -48,7 +43,7 @@ pipeline {
                 }
             }
         } */
-        stage('Create Tag and push') {
+        /* stage('Create Tag and push') {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'git-pat', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
@@ -65,6 +60,22 @@ pipeline {
                         sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
                         sh "git push origin ${tagName} --force"
                     }
+                }
+            }
+        } */
+        stage('Create Tag and push') {
+            steps {
+                script {
+                   def version = params.VERSION_NUMBER
+                   def tagName = "v${version}"
+                   def pomFile = 'pom.xml'
+                   def pom = readMavenPom file: pomFile
+                   pom.version = version
+                   writeMavenPom file: pomFile, model: pom
+                   // sh "git remote set-url origin https://$USERNAME:$PASSWORD@github.com/$USERNAME/dematinvoice.git"
+                   sh "git config --get remote.origin.url"
+                   sh "git tag -a ${tagName} -m 'Tag for version ${version}'"
+                   sh "git push origin ${tagName} --force"
                 }
             }
         }
