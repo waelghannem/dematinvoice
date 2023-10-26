@@ -82,7 +82,7 @@ spring:
         enabled: true
 
 server:
-  port: 8081
+  port: 8080
 
 # ===================================================================
 # JHipster specific properties
@@ -160,8 +160,8 @@ aws:
         check:
   core:
     enabled: true
-    accesskey: AKIA4CWLKN2CMEEOSINW
-    secretkey: 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
+    accesskey: AKIA4CWLKN2CKXCHJFNI
+    secretkey: 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
     region: US_EAST_1
     sqs:
       queue:

@@ -20,7 +20,9 @@ services:
     # If you want to expose these ports outside your dev PC,
     # remove the "127.0.0.1:" prefix
     ports:
-      - 127.0.0.1:8080:8080
+      - 127.0.0.1:8081:8080
+    networks:
+      - invoice-demat-network
   dematinvoice-postgresql:
     image: postgres:14.5
     # volumes:
@@ -33,6 +35,8 @@ services:
     # remove the "127.0.0.1:" prefix
     ports:
       - 127.0.0.1:5433:5432
+    networks:
+      - invoice-demat-network
   dematinvoice-elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.4
     # volumes:
@@ -42,6 +46,8 @@ services:
     ports:
       - 127.0.0.1:9200:9200
       - 127.0.0.1:9300:9300
+    networks:
+      - invoice-demat-network
     environment:
       - 'ES_JAVA_OPTS=-Xms256m -Xmx256m'
       - 'discovery.type=single-node'
@@ -51,6 +57,8 @@ services:
     # remove the "127.0.0.1:" prefix
     ports:
       - 127.0.0.1:9092:9092
+    networks:
+      - invoice-demat-network
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -64,6 +72,8 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - invoice-demat-network
   consul:
     image: consul:1.13.1
     # If you want to expose these ports outside your dev PC,
@@ -72,12 +82,16 @@ services:
       - 127.0.0.1:8300:8300
       - 127.0.0.1:8500:8500
       - 127.0.0.1:8600:8600
+    networks:
+      - invoice-demat-network
     command: consul agent -dev -ui -client 0.0.0.0 -log-level=INFO
 
   consul-config-loader:
     image: jhipster/consul-config-loader:v0.4.1
     volumes:
       - ./central-server-config:/config
+    networks:
+      - invoice-demat-network
     environment:
       - INIT_SLEEP_SECONDS=5
       - CONSUL_URL=consul
@@ -103,3 +117,7 @@ services:
     ports:
       - 127.0.0.1:9080:9080
       - 127.0.0.1:9443:9443
+    networks:
+      - invoice-demat-network
+networks:
+  invoice-demat-network:

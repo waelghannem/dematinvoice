@@ -1,0 +1,347 @@
+{
+  "family": "invoicedemat",
+  "networkMode": "bridge",
+  "containerDefinitions": [
+    {
+      "name": "dematinvoice-app",
+      "image": "waelghannem/dematinvoice:latest",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "name": "dematinvoice-app-8081-tcp",
+          "containerPort": 8081,
+          "hostPort": 8081,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "SPRING_PROFILES_ACTIVE",
+          "value": "prod,api-docs"
+        },
+        {
+          "name": "SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID",
+          "value": "web_app"
+        },
+        {
+          "name": "SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS",
+          "value": "kafka:9092"
+        },
+        {
+          "name": "MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED",
+          "value": "true"
+        },
+        {
+          "name": "SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET",
+          "value": "web_app"
+        },
+        {
+          "name": "JHIPSTER_SLEEP",
+          "value": "80"
+        },
+        {
+          "name": "_JAVA_OPTIONS",
+          "value": "-Xmx512m -Xms256m"
+        },
+        {
+          "name": "SPRING_ELASTICSEARCH_URIS",
+          "value": "http://dematinvoice-elasticsearch:9200"
+        },
+        {
+          "name": "SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI",
+          "value": "http://keycloak:9080/realms/jhipster"
+        },
+        {
+          "name": "SPRING_CLOUD_CONSUL_PORT",
+          "value": "8500"
+        },
+        {
+          "name": "SPRING_LIQUIBASE_URL",
+          "value": "jdbc:postgresql://dematinvoice-postgresql:5432/dematinvoice"
+        },
+        {
+          "name": "SPRING_CLOUD_CONSUL_HOST",
+          "value": "consul"
+        },
+        {
+          "name": "SPRING_R2DBC_URL",
+          "value": "r2dbc:postgresql://dematinvoice-postgresql:5432/dematinvoice"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-create-group": "true",
+          "awslogs-group": "/ecs/invoicedemat",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    },
+    {
+      "name": "dematinvoice-postgresql",
+      "image": "postgres:14.5",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "name": "dematinvoice-postgresql-5432-tcp",
+          "containerPort": 5432,
+          "hostPort": 5432,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": false,
+      "environment": [
+        {
+          "name": "POSTGRES_USER",
+          "value": "dematinvoice"
+        },
+        {
+          "name": "POSTGRES_PASSWORD",
+          "value": ""
+        },
+        {
+          "name": "POSTGRES_HOST_AUTH_METHOD",
+          "value": "trust"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": []
+    },
+    {
+      "name": "dematinvoice-elasticsearch",
+      "image": "docker.elastic.co/elasticsearch/elasticsearch:7.17.4",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "name": "dematinvoice-elasticsearch-9200-tcp",
+          "containerPort": 9200,
+          "hostPort": 9200,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        },
+        {
+          "name": "dematinvoice-elasticsearch-9300-tcp",
+          "containerPort": 9300,
+          "hostPort": 9300,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": false,
+      "environment": [
+        {
+          "name": "discovery.type",
+          "value": "single-node"
+        },
+        {
+          "name": "ES_JAVA_OPTS",
+          "value": "-Xms256m -Xmx256m"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": []
+    },
+    {
+      "name": "kafka",
+      "image": "confluentinc/cp-kafka:7.2.1",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "containerPort": 9092,
+          "hostPort": 9092
+        }
+      ],
+      "essential": false,
+      "environment": [
+        {
+          "name": "KAFKA_BROKER_ID",
+          "value": "1"
+        },
+        {
+          "name": "KAFKA_ADVERTISED_LISTENERS",
+          "value": "PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092"
+        },
+        {
+          "name": "KAFKA_ADVERTISED_HOST_NAME",
+          "value": "kafka"
+        },
+        {
+          "name": "KAFKA_ZOOKEEPER_CONNECT",
+          "value": "localhost:2181"
+        },
+        {
+          "name": "KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR",
+          "value": "1"
+        },
+        {
+          "name": "KAFKA_INTER_BROKER_LISTENER_NAME",
+          "value": "PLAINTEXT"
+        },
+        {
+          "name": "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP",
+          "value": "PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": []
+    },
+    {
+      "name": "zookeeper",
+      "image": "confluentinc/cp-zookeeper:7.2.1",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "containerPort": 2181,
+          "hostPort": 2181
+        }
+      ],
+      "essential": false,
+      "environment": [
+        {
+          "name": "ZOOKEEPER_CLIENT_PORT",
+          "value": "2181"
+        },
+        {
+          "name": "ZOOKEEPER_TICK_TIME",
+          "value": "2000"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": []
+    },
+    {
+      "name": "consul",
+      "image": "consul:1.13.1",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "name": "consul-8300-tcp",
+          "containerPort": 8300,
+          "hostPort": 8300,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        },
+        {
+          "name": "consul-8500-tcp",
+          "containerPort": 8500,
+          "hostPort": 8500,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        },
+        {
+          "name": "consul-8600-tcp",
+          "containerPort": 8600,
+          "hostPort": 8600,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": false,
+      "command": [
+        "consul",
+        "agent",
+        "-dev",
+        "-ui",
+        "-client",
+        "0.0.0.0",
+        "-log-level=INFO"
+      ],
+      "environment": [],
+      "mountPoints": [],
+      "volumesFrom": []
+    },
+    {
+      "name": "consul-config-loader",
+      "image": "jhipster/consul-config-loader:v0.4.1",
+      "cpu": 0,
+      "portMappings": [],
+      "essential": false,
+      "environment": [
+        {
+          "name": "CONSUL_PORT",
+          "value": "8500"
+        },
+        {
+          "name": "INIT_SLEEP_SECONDS",
+          "value": "5"
+        },
+        {
+          "name": "CONSUL_URL",
+          "value": "consul"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": []
+    },
+    {
+      "name": "keycloak",
+      "image": "quay.io/keycloak/keycloak:19.0.1",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "name": "keycloak-9080-tcp",
+          "containerPort": 9080,
+          "hostPort": 9080,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        },
+        {
+          "name": "keycloak-9443-tcp",
+          "containerPort": 9443,
+          "hostPort": 9443,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": false,
+      "command": [
+        "start-dev --import-realm"
+      ],
+      "environment": [
+        {
+          "name": "KEYCLOAK_ADMIN_PASSWORD",
+          "value": "admin"
+        },
+        {
+          "name": "KC_HTTP_PORT",
+          "value": "9080"
+        },
+        {
+          "name": "KC_FEATURES",
+          "value": "scripts"
+        },
+        {
+          "name": "KC_DB",
+          "value": "dev-file"
+        },
+        {
+          "name": "KEYCLOAK_ADMIN",
+          "value": "admin"
+        },
+        {
+          "name": "KC_HTTPS_PORT",
+          "value": "9443"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": []
+    }
+  ],
+  "executionRoleArn": "arn:aws:iam::830428835460:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "1024",
+  "memory": "3072",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  }
+}
