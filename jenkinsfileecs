@@ -33,7 +33,7 @@ pipeline {
         }
          stage('Deploy to ECS') {
               steps {
-                withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
+                withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
                     sh 'aws s3 ls'
                     sh 'aws ecs update-service --cluster ${AWS_ECS_CLUSTER} --service ${AWS_ECS_SERVICE} --force-new-deployment'
                 }
