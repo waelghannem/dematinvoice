@@ -42,7 +42,7 @@ pipeline {
     post {
         always {
            deleteDir()
-           sh "docker rmi ${myImageName}"
+           //sh "docker rmi ${myImageName}"
         }
     }
 }
