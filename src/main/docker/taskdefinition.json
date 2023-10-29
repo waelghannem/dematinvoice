@@ -1,21 +1,15 @@
 {
-  "family": "invoicedematExternal",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:830428835460:task-definition/invoicedematExternal:20",
   "containerDefinitions": [
     {
       "name": "dematinvoice-app",
-      "image": "waelghannem/dematinvoice:0.7.0",
+      "image": "waelghannem/dematinvoice:0.11.0",
       "cpu": 0,
       "portMappings": [
         {
           "containerPort": 8080,
           "hostPort": 8080,
           "protocol": "tcp"
-        }
-      ],
-      "dependsOn": [
-        {
-          "containerName": "keycloak",
-          "condition": "SUCCESS"
         }
       ],
       "essential": false,
@@ -216,8 +210,10 @@
       "volumesFrom": []
     }
   ],
+  "family": "invoicedematExternal",
   "executionRoleArn": "arn:aws:iam::830428835460:role/ecsTaskExecutionRole",
   "networkMode": "bridge",
+  "revision": 20,
   "volumes": [
     {
       "name": "realm-config",
@@ -231,6 +227,17 @@
         "sourcePath": "/invoicedemat/central-server-config"
       }
     }
+  ],
+  "status": "ACTIVE",
+  "requiresAttributes": [
+    {
+      "name": "ecs.capability.env-files.s3"
+    }
+  ],
+  "placementConstraints": [],
+  "compatibilities": [
+    "EXTERNAL",
+    "EC2"
   ],
   "requiresCompatibilities": [
     "EXTERNAL"
