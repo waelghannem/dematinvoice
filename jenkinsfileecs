@@ -35,9 +35,10 @@ pipeline {
          stage('Deploy to ECS') {
               steps {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    def taskDefinitionRevision = params.TASK_DEFINITION_REVISION
                     sh 'aws s3 ls'
                     sh("aws ecs register-task-definition --region ${AWS_ECS_REGION} --family ${AWS_ECS_TASK_DEFINITION} --cli-input-json file://${AWS_ECS_TASK_DEFINITION_PATH}")
-                    sh "aws ecs update-service --cluster ${AWS_ECS_CLUSTER} --service ${AWS_ECS_SERVICE} --task-definition ${AWS_ECS_TASK_DEFINITION}:21"
+                    sh "aws ecs update-service --cluster ${AWS_ECS_CLUSTER} --service ${AWS_ECS_SERVICE} --task-definition ${AWS_ECS_TASK_DEFINITION}:${taskDefinitionRevision}"
                 }
               }
          }
