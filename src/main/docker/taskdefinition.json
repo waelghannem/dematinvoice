@@ -1,0 +1,244 @@
+{
+  "family": "invoicedematExternal",
+  "containerDefinitions": [
+    {
+      "name": "dematinvoice-app",
+      "image": "waelghannem/dematinvoice:0.7.0",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "dependsOn": [
+        {
+          "containerName": "keycloak",
+          "condition": "SUCCESS"
+        }
+      ],
+      "essential": false,
+      "environment": [],
+      "environmentFiles": [
+        {
+          "value": "arn:aws:s3:::invoicedematarchivev1/demat_invoice_envfile.env",
+          "type": "s3"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": []
+    },
+    {
+      "name": "dematinvoice-postgresql",
+      "image": "postgres:14.5",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "containerPort": 5432,
+          "hostPort": 5432,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [],
+      "environmentFiles": [
+        {
+          "value": "arn:aws:s3:::invoicedematarchivev1/demat_invoice_envfile.env",
+          "type": "s3"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": []
+    },
+    {
+      "name": "dematinvoice-elasticsearch",
+      "image": "docker.elastic.co/elasticsearch/elasticsearch:7.17.4",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "containerPort": 9200,
+          "hostPort": 9200,
+          "protocol": "tcp"
+        },
+        {
+          "containerPort": 9300,
+          "hostPort": 9300,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": false,
+      "environment": [],
+      "environmentFiles": [
+        {
+          "value": "arn:aws:s3:::invoicedematarchivev1/demat_invoice_envfile.env",
+          "type": "s3"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": []
+    },
+    {
+      "name": "kafka",
+      "image": "confluentinc/cp-kafka:7.2.1",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "containerPort": 9092,
+          "hostPort": 9092,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": false,
+      "environment": [],
+      "environmentFiles": [
+        {
+          "value": "arn:aws:s3:::invoicedematarchivev1/demat_invoice_envfile.env",
+          "type": "s3"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": []
+    },
+    {
+      "name": "zookeeper",
+      "image": "confluentinc/cp-zookeeper:7.2.1",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "containerPort": 2181,
+          "hostPort": 2181,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": false,
+      "environment": [],
+      "environmentFiles": [
+        {
+          "value": "arn:aws:s3:::invoicedematarchivev1/demat_invoice_envfile.env",
+          "type": "s3"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": []
+    },
+    {
+      "name": "consul",
+      "image": "consul:1.13.1",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "containerPort": 8300,
+          "hostPort": 8300,
+          "protocol": "tcp"
+        },
+        {
+          "containerPort": 8500,
+          "hostPort": 8500,
+          "protocol": "tcp"
+        },
+        {
+          "containerPort": 8600,
+          "hostPort": 8600,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": false,
+      "command": [
+        "consul",
+        "agent",
+        "-dev",
+        "-ui",
+        "-client",
+        "0.0.0.0",
+        "-log-level=INFO"
+      ],
+      "environment": [],
+      "mountPoints": [],
+      "volumesFrom": []
+    },
+    {
+      "name": "consul-config-loader",
+      "image": "jhipster/consul-config-loader:v0.4.1",
+      "cpu": 0,
+      "portMappings": [],
+      "essential": false,
+      "environment": [],
+      "environmentFiles": [
+        {
+          "value": "arn:aws:s3:::invoicedematarchivev1/demat_invoice_envfile.env",
+          "type": "s3"
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "central-server-config",
+          "containerPath": "/config",
+          "readOnly": false
+        }
+      ],
+      "volumesFrom": []
+    },
+    {
+      "name": "keycloak",
+      "image": "quay.io/keycloak/keycloak:19.0.1",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "containerPort": 9080,
+          "hostPort": 9080,
+          "protocol": "tcp"
+        },
+        {
+          "containerPort": 9443,
+          "hostPort": 9443,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": false,
+      "command": [
+        "start-dev --import-realm"
+      ],
+      "environment": [],
+      "environmentFiles": [
+        {
+          "value": "arn:aws:s3:::invoicedematarchivev1/demat_invoice_envfile.env",
+          "type": "s3"
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "realm-config",
+          "containerPath": "/opt/keycloak/data/import",
+          "readOnly": false
+        }
+      ],
+      "volumesFrom": []
+    }
+  ],
+  "executionRoleArn": "arn:aws:iam::830428835460:role/ecsTaskExecutionRole",
+  "networkMode": "bridge",
+  "volumes": [
+    {
+      "name": "realm-config",
+      "host": {
+        "sourcePath": "/invoicedemat/realm-config"
+      }
+    },
+    {
+      "name": "central-server-config",
+      "host": {
+        "sourcePath": "/invoicedemat/central-server-config"
+      }
+    }
+  ],
+  "requiresCompatibilities": [
+    "EXTERNAL"
+  ],
+  "cpu": "1024",
+  "memory": "3072",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  }
+}
