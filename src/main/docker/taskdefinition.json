@@ -1,5 +1,5 @@
 {
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:830428835460:task-definition/invoicedematExternal:20",
+  "family": "invoicedematExternal",
   "containerDefinitions": [
     {
       "name": "dematinvoice-app",
@@ -210,10 +210,8 @@
       "volumesFrom": []
     }
   ],
-  "family": "invoicedematExternal",
   "executionRoleArn": "arn:aws:iam::830428835460:role/ecsTaskExecutionRole",
   "networkMode": "bridge",
-  "revision": 20,
   "volumes": [
     {
       "name": "realm-config",
@@ -227,17 +225,6 @@
         "sourcePath": "/invoicedemat/central-server-config"
       }
     }
-  ],
-  "status": "ACTIVE",
-  "requiresAttributes": [
-    {
-      "name": "ecs.capability.env-files.s3"
-    }
-  ],
-  "placementConstraints": [],
-  "compatibilities": [
-    "EXTERNAL",
-    "EC2"
   ],
   "requiresCompatibilities": [
     "EXTERNAL"
