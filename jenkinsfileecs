@@ -6,7 +6,7 @@ pipeline {
     }
     environment {
         AWS_ECS_SERVICE = 'invoicedemat'
-        AWS_ECS_TASK_DEFINITION = 'invoicedematExternal:20'
+        AWS_ECS_TASK_DEFINITION = 'invoicedematExternal'
         AWS_ECS_CLUSTER = 'devCluster'
         AWS_ECS_TASK_DEFINITION_PATH = './src/main/docker/taskdefinition.json'
     }
@@ -35,7 +35,7 @@ pipeline {
               steps {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh 'aws s3 ls'
-                    sh 'aws ecs update-service --cluster ${AWS_ECS_CLUSTER} --service ${AWS_ECS_SERVICE} --force-new-deployment'
+                    sh "aws ecs update-service --cluster ${AWS_ECS_CLUSTER} --service ${AWS_ECS_SERVICE} --task-definition ${AWS_ECS_TASK_DEFINITION}:20"
                 }
               }
          }
