@@ -8,6 +8,7 @@ pipeline {
         AWS_ECS_SERVICE = 'invoicedemat'
         AWS_ECS_TASK_DEFINITION = 'invoicedematExternal'
         AWS_ECS_CLUSTER = 'devCluster'
+        AWS_ECS_REGION = 'us-east-1'
         AWS_ECS_TASK_DEFINITION_PATH = './src/main/docker/taskdefinition.json'
     }
     stages {
@@ -35,7 +36,7 @@ pipeline {
               steps {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh 'aws s3 ls'
-                    sh("aws ecs register-task-definition --region ${AWS_ECR_REGION} --family ${AWS_ECS_TASK_DEFINITION} --cli-input-json file://${AWS_ECS_TASK_DEFINITION_PATH}")
+                    sh("aws ecs register-task-definition --region ${AWS_ECS_REGION} --family ${AWS_ECS_TASK_DEFINITION} --cli-input-json file://${AWS_ECS_TASK_DEFINITION_PATH}")
                     sh "aws ecs update-service --cluster ${AWS_ECS_CLUSTER} --service ${AWS_ECS_SERVICE} --task-definition ${AWS_ECS_TASK_DEFINITION}:21"
                 }
               }
