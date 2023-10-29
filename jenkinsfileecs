@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+    tools {
+        // Define the Maven tool and specify the name you configured in Jenkins.
+        maven 'maven-3.6.0'
+    }
+    environment {
+        AWS_ECS_SERVICE = 'invoicedemat'
+        AWS_ECS_TASK_DEFINITION = 'invoicedematExternal:20'
+        AWS_ECS_CLUSTER = 'devCluster'
+        AWS_ECS_TASK_DEFINITION_PATH = './src/main/docker/taskdefinition.json'
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build and Push Docker Image') {
+            steps {
+                script {
+                    def myImageName = params.IMAGE_NAME
+                    // Assuming you have Maven installed and configured in your Jenkins environment.
+                    sh 'mvn --version'
+                    // sh "mvn clean package jib:build -Dimage.name=${myImageName}"
+                    withDockerRegistry([credentialsId: 'dockerhub-credentials', url: '']) {
+                       // Build and push the Docker image
+                       sh "mvn clean package jib:build -Dimage.name=${myImageName}"
+                    }
+                }
+            }
+        }
+         stage('Deploy to ECS') {
+              steps {
+                withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
+                sh 'aws ecs update-service --cluster ${AWS_ECS_CLUSTER} --service ${AWS_ECS_SERVICE} --force-new-deployment'
+                }
+              }
+         }
+    }
+    post {
+        always {
+           deleteDir()
+           sh "docker rmi ${myImageName}"
+        }
+    }
+}
